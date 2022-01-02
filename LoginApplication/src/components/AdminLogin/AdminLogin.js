@@ -5,7 +5,6 @@ import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
 import { loginActions } from '../../store/login';
-import { useSelector } from 'react-redux';
 
 const emailReducer = (state, action) => {
   if (action.type === 'USER_INPUT') {
@@ -79,21 +78,18 @@ const AdminLogin  = (props) => {
     fetchsubmitHandler();
   };
 
-  const User = useSelector((state) => state.User.User);
 
 
   const fetchsubmitHandler= useCallback(async () => {
     try {
-      console.log("User")
-      console.log(User)
-      // event.preventDefault();
       const response = await fetch('admin/login?email=' + emailState.value + '&password=' + passwordState.value)
       if (!response.ok) {
         throw new Error('Something went wrong!');
       }
       const data = await response.json();
       data.map((couponsData) => {
-        if (couponsData.id === "true") {
+        if (couponsData.isLoggedIn === "true") {
+          localStorage.setItem('isLoggedIn', '1');
           dispatch(loginActions.login());
 
         } else {
@@ -105,7 +101,7 @@ const AdminLogin  = (props) => {
     } catch (error) {
       // setError(error.message);
     }
-  }, [emailState.value,passwordState.value,dispatch,User]);
+  }, [emailState.value,passwordState.value,dispatch]);
 
   return (
     <Card className={classes.login}>

@@ -10,21 +10,26 @@ const Navigation = () => {
     const User = useSelector((state) => state.User.User);
 
     const logoutHandler = () => {
+        localStorage.removeItem('isLoggedIn');
         dispatch(loginActions.logout());
     };
 
     const companyHandler = () => {
         console.log(User);
+        localStorage.setItem('user', '1');
         dispatch(UserActions.company());
-    };
-    const adminHandler = () => {
-        console.log(User);
-        dispatch(UserActions.admin());
     };
     const customerHandler = () => {
         console.log(User);
+        localStorage.setItem('user', '2');
         dispatch(UserActions.customer());
     };
+    const adminHandler = () => {
+        console.log(User);
+        localStorage.setItem('user', '3');
+        dispatch(UserActions.admin());
+    };
+
 
     return (
         <nav className={classes.nav}>

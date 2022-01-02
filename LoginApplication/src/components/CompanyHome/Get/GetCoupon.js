@@ -13,7 +13,7 @@ function GetCoupon() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('company/all');
+      const response = await fetch('company/getCoupon');
       if (!response.ok) {
         throw new Error('Something went wrong!');
       }
@@ -60,7 +60,7 @@ function GetCoupon() {
   return (
     <div className={classes.actions}>
       <Button type="submit" onClick={fetchcouponHandler} className={classes.btn}>
-        Fetch
+        GET Coupon
       </Button>
       <section>{content}</section>
     </div>

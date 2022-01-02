@@ -1,6 +1,7 @@
-import React, {  Fragment } from 'react';
-import { useSelector } from 'react-redux';
-// import { LoginActions } from './store/Login';
+import React, { useEffect, Fragment } from 'react';
+import { useSelector,useDispatch } from 'react-redux';
+import { loginActions } from './store/login';
+import { UserActions } from './store/User';
 
 import CompanyLogin from './components/CompanyLogin/CompanyLogin';
 import CustomerLogin from './components/CustomerLogin/CustomerLogin';
@@ -11,10 +12,25 @@ import CustomerHome from './components/CustomerHome/CustomerHome';
 import MainHeader from './components/MainHeader/MainHeader';
 
 function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.login.isLogin);
   const User = useSelector((state) => state.User.User);
 
+  useEffect(() => {
+    const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
+    const storedUserUserInformation=localStorage.getItem('user');
+    if (storedUserLoggedInInformation === "1") {
+      dispatch(loginActions.login());
+    }
+    if(storedUserUserInformation==="1"){
+      dispatch(UserActions.company());
+    }else if(storedUserUserInformation==="2"){
+      dispatch(UserActions.customer());
+    }else{
+      dispatch(UserActions.admin());
+
+    }
+  }, [dispatch]);
 
   return (
     <Fragment>
@@ -22,6 +38,7 @@ function App() {
       <MainHeader />
       <main>
         <companyLogin/>
+        <h1>{isLogin}</h1>
         {!isLogin&&User==="company" && <CompanyLogin />}
         {!isLogin&&User==="customer" && <CustomerLogin />}
         {!isLogin&&User==="admin" && <AdminLogin/>}
