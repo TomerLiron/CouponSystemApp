@@ -1,5 +1,0 @@
-  "proxy": "http://localhost:8080" in package.json
-# If you use npm:
-npm install react-redux
-# NPM
-npm install @reduxjs/toolkit
