@@ -2,10 +2,10 @@
 package com.evgenie_tomer_itay.services;
 
 
-import com.evgenie_tomer_itay.exceptions.couponExceptions.adminExceptions.AdminNotExistsException;
-import com.evgenie_tomer_itay.exceptions.couponExceptions.customerExceptions.CustomerAlreadyExistsException;
-import com.evgenie_tomer_itay.exceptions.couponExceptions.customerExceptions.companyExceptions.CompanyNotExistsException;
-import com.evgenie_tomer_itay.exceptions.couponExceptions.customerExceptions.customerNotExistsException;
+import com.evgenie_tomer_itay.exceptions.adminExceptions.AdminNotExistsException;
+import com.evgenie_tomer_itay.exceptions.customerExceptions.CustomerAlreadyExistsException;
+import com.evgenie_tomer_itay.exceptions.companyExceptions.CompanyNotExistsException;
+import com.evgenie_tomer_itay.exceptions.customerExceptions.customerNotExistsException;
 
 public abstract class ClientService {
 	/**

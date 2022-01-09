@@ -1,14 +1,10 @@
 package com.evgenie_tomer_itay.controllers;
 
 
-import com.evgenie_tomer_itay.entities.Company;
-import com.evgenie_tomer_itay.exceptions.couponExceptions.adminExceptions.AdminNotExistsException;
-import com.evgenie_tomer_itay.repositories.CompanyRepository;
-import com.evgenie_tomer_itay.repositories.CouponRepository;
+import com.evgenie_tomer_itay.exceptions.adminExceptions.AdminNotExistsException;
 import com.evgenie_tomer_itay.services.AdminServiceImplementation;
 import com.evgenie_tomer_itay.utilities.Credentials;
 import com.evgenie_tomer_itay.utilities.SimpleTokenManager;
-import com.evgenie_tomer_itay.utilities.Validations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

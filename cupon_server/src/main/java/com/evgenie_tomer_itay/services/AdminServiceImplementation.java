@@ -2,12 +2,12 @@ package com.evgenie_tomer_itay.services;
 
 import com.evgenie_tomer_itay.entities.Company;
 import com.evgenie_tomer_itay.entities.Customer;
-import com.evgenie_tomer_itay.exceptions.couponExceptions.adminExceptions.AdminNotExistsException;
-import com.evgenie_tomer_itay.exceptions.couponExceptions.customerExceptions.CustomerAlreadyExistsException;
-import com.evgenie_tomer_itay.exceptions.couponExceptions.customerExceptions.UpdateNotAllowedException;
-import com.evgenie_tomer_itay.exceptions.couponExceptions.customerExceptions.companyExceptions.CompanyAlreadyExistsException;
-import com.evgenie_tomer_itay.exceptions.couponExceptions.customerExceptions.companyExceptions.CompanyNotExistsException;
-import com.evgenie_tomer_itay.exceptions.couponExceptions.customerExceptions.customerNotExistsException;
+import com.evgenie_tomer_itay.exceptions.adminExceptions.AdminNotExistsException;
+import com.evgenie_tomer_itay.exceptions.customerExceptions.CustomerAlreadyExistsException;
+import com.evgenie_tomer_itay.exceptions.customerExceptions.UpdateNotAllowedException;
+import com.evgenie_tomer_itay.exceptions.companyExceptions.CompanyAlreadyExistsException;
+import com.evgenie_tomer_itay.exceptions.companyExceptions.CompanyNotExistsException;
+import com.evgenie_tomer_itay.exceptions.customerExceptions.customerNotExistsException;
 import com.evgenie_tomer_itay.repositories.CompanyRepository;
 import com.evgenie_tomer_itay.repositories.CustomerRepository;
 import com.evgenie_tomer_itay.utilities.Validations;

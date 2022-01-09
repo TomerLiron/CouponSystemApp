@@ -3,7 +3,7 @@ package com.evgenie_tomer_itay.services;
 
 import com.evgenie_tomer_itay.entities.Company;
 import com.evgenie_tomer_itay.entities.Customer;
-import com.evgenie_tomer_itay.exceptions.couponExceptions.adminExceptions.AdminNotExistsException;
+import com.evgenie_tomer_itay.exceptions.adminExceptions.AdminNotExistsException;
 import com.evgenie_tomer_itay.repositories.CompanyRepository;
 import com.evgenie_tomer_itay.repositories.CustomerRepository;
 import com.evgenie_tomer_itay.utilities.Validations;

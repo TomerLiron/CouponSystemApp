@@ -4,7 +4,7 @@ package com.evgenie_tomer_itay.services;
 
 import com.evgenie_tomer_itay.entities.Company;
 import com.evgenie_tomer_itay.entities.Coupon;
-import com.evgenie_tomer_itay.exceptions.couponExceptions.customerExceptions.companyExceptions.CompanyNotExistsException;
+import com.evgenie_tomer_itay.exceptions.companyExceptions.CompanyNotExistsException;
 import com.evgenie_tomer_itay.utilities.Validations;
 import jdk.jfr.Category;
 

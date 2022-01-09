@@ -1,6 +1,6 @@
 package com.evgenie_tomer_itay.controllers;
 
-import com.evgenie_tomer_itay.exceptions.couponExceptions.customerExceptions.CustomerAlreadyExistsException;
+import com.evgenie_tomer_itay.exceptions.customerExceptions.CustomerAlreadyExistsException;
 import com.evgenie_tomer_itay.services.CustomerServiceImplementation;
 import com.evgenie_tomer_itay.utilities.Credentials;
 import com.evgenie_tomer_itay.utilities.SimpleTokenManager;
@@ -32,28 +32,6 @@ public class Customer_controller {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-/*
-    @GetMapping("login")
-    @ResponseBody
-    public ArrayList<Map<String, String>> login(@RequestParam String email, @RequestParam String password) {
-        System.out.println(email);
-        ArrayList<Map<String, String>> map = new ArrayList<Map<String, String>>();
-        Map<String, String> m = new HashMap<String, String>();
-        if (customerRepository.existsByEmailAndPassword(email, password)) {
-            customerId = customerRepository.findByEmailAndPassword(email, password).getId();
-            m.put("isLoggedIn", "true");
-            System.out.println("login " + customerId);
-            map.add(m);
-            return map;
-
-        }
-
-        else {
-            m.put("isLoggedIn", "false");
-            map.add(m);
-            return map;
-        }
-    }*/
 
 /* //spring security,token
     @GetMapping("all")

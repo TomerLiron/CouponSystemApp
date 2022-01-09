@@ -2,7 +2,7 @@ package com.evgenie_tomer_itay.controllers;
 
 
 import com.evgenie_tomer_itay.entities.Coupon;
-import com.evgenie_tomer_itay.exceptions.couponExceptions.customerExceptions.companyExceptions.CompanyNotExistsException;
+import com.evgenie_tomer_itay.exceptions.companyExceptions.CompanyNotExistsException;
 import com.evgenie_tomer_itay.services.CompanyServiceImplementation;
 import com.evgenie_tomer_itay.utilities.Credentials;
 import com.evgenie_tomer_itay.utilities.SimpleTokenManager;
