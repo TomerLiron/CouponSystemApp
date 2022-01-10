@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.ToString.Exclude;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 @Entity
@@ -32,9 +37,11 @@ public class Customer {
 
 	@Column(columnDefinition = "LONGTEXT", nullable = false)
 	private String password;
+	
 	@Exclude
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "customers_vs_coupons", joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns = @JoinColumn(name = "coupon_id"))
+	@JsonIgnore
 	private List<Coupon> coupons;
 
 	public void purchaseCoupon(Coupon coupon) {
@@ -46,5 +53,4 @@ public class Customer {
 		coupons.remove(coupon);
 
 	}
-
 }

@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString.Exclude;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 @Data
@@ -20,10 +23,11 @@ public class Company {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(nullable = false)
 	private String name;
+	
 	@Column(nullable = false)
-
 	private String email;
 
 	@Column(columnDefinition = "LONGTEXT", nullable = false)
@@ -32,6 +36,7 @@ public class Company {
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.DETACH }, mappedBy = "company")
 	@Exclude
+	@JsonIgnore
 	private List<Coupon> coupons;
 
 	public void addToCoupons(Coupon coupon) {
