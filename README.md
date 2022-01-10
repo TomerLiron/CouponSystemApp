@@ -1,5 +1,9 @@
 # CouponSystemApp
+-----
+10/1/2022 (Itay)
 
+- Updated company Controller
+- Services methods now throws exceptions so they (the exceptions) can be passed on to the controllers
 -----
 10/1/2022 (Evgenie)
 
