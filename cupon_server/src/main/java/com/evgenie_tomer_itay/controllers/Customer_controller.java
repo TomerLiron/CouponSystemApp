@@ -1,5 +1,6 @@
 package com.evgenie_tomer_itay.controllers;
 
+import com.evgenie_tomer_itay.entities.Coupon;
 import com.evgenie_tomer_itay.exceptions.customerExceptions.CustomerAlreadyExistsException;
 import com.evgenie_tomer_itay.services.CustomerServiceImplementation;
 import com.evgenie_tomer_itay.utilities.Credentials;
@@ -21,42 +22,48 @@ public class Customer_controller {
 
     //Customer Login validations miss
     @PostMapping("login")
-    public ResponseEntity<?> login(@RequestBody Credentials cred)
-    {
-        System.out.println(new Date()+": Got a new login: "+cred);
+    public ResponseEntity<?> login(@RequestBody Credentials cred) {
+        System.out.println(new Date() + ": Got a new login: " + cred);
         try {
             customerService.login(cred.getEmail(), cred.getPassword());
             String token = simpleTokenManager.getNewToken();
             return new ResponseEntity<String>(token, HttpStatus.OK);
-        }  catch (CustomerAlreadyExistsException e) {
+        } catch (CustomerAlreadyExistsException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-/* //spring security,token
-    @GetMapping("all")
-    public ArrayList<Map<String, String>> getAllCoupons() {
-        List<Coupon> coupons = couponRepository.findByCustomerId(customerId);
-        System.out.println("all " + coupons.size());
-        ArrayList<Map<String, String>> Map = new ArrayList<Map<String, String>>();
-        //@RequestParam String category,@RequestParam String title,@RequestParam String description, @RequestParam int amount,
-        //@RequestParam String startDate, @RequestParam String endDate,@RequestParam double price,@RequestParam String image
-        for (int i = 0; i < coupons.size(); i++) {
-            Map<String, String> m = new HashMap<String, String>();
-            m.put("id", "" + coupons.get(i).getId());
-            m.put("company", "" + coupons.get(i).getCompany().getId());
-            m.put("category", "" + coupons.get(i).getCategory());
-            m.put("title", coupons.get(i).getTitle());
-            m.put("description", coupons.get(i).getDescription());
-            m.put("amount", "" + coupons.get(i).getAmount());
-            m.put("startDate", "" + coupons.get(i).getStartDate());
-            m.put("endDate", "" + coupons.get(i).getEndDate());
-            m.put("price", "" + coupons.get(i).getPrice());
-            m.put("image", coupons.get(i).getImage());
-            Map.add(m);
+    //spring security,token
+    @GetMapping("all/{token}")
+    @ResponseBody
+    public ResponseEntity<?> all(@PathVariable String token) {
+        System.out.println("all");
+        if (simpleTokenManager.isTokenExist(token)) {
+            System.out.println("good");
+            List<Coupon> coupons = customerService.getPurchasedCoupons();
+            System.out.println("all " + coupons.size());
+            ArrayList<Map<String, String>> Map = new ArrayList<Map<String, String>>();
+            //@RequestParam String category,@RequestParam String title,@RequestParam String description, @RequestParam int amount,
+            //@RequestParam String startDate, @RequestParam String endDate,@RequestParam double price,@RequestParam String image
+            for (int i = 0; i < coupons.size(); i++) {
+                Map<String, String> m = new HashMap<String, String>();
+                m.put("id", "" + coupons.get(i).getId());
+                m.put("company", "" + coupons.get(i).getCompany().getId());
+                m.put("category", "" + coupons.get(i).getCategory());
+                m.put("title", coupons.get(i).getTitle());
+                m.put("description", coupons.get(i).getDescription());
+                m.put("amount", "" + coupons.get(i).getAmount());
+                m.put("startDate", "" + coupons.get(i).getStartDate());
+                m.put("endDate", "" + coupons.get(i).getEndDate());
+                m.put("price", "" + coupons.get(i).getPrice());
+                m.put("image", coupons.get(i).getImage());
+                Map.add(m);
+            }
+            return new ResponseEntity<ArrayList<Map<String, String>>>(Map, HttpStatus.OK);
         }
-        return Map;
-    }*/
+        return new ResponseEntity<String>("No Session!", HttpStatus.BAD_REQUEST);
+    }
+}
   /*
     @GetMapping("add")
     @ResponseBody
@@ -117,4 +124,3 @@ public class Customer_controller {
         return map;
     }
 */
-}
