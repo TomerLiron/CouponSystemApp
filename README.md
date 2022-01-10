@@ -3,6 +3,7 @@
 -----
 10/1/2022 (Evgenie)
 
+Added all required functions to AdminController
 Added class to convert objects to Json
 
 -----
