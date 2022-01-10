@@ -35,20 +35,17 @@ public class AdminServiceImplementation extends ClientService implements AdminSe
 	public void login(String email, String password) throws AdminNotExistsException {
 
 		if ((email.equals(ADMIN_EMAIL)) && (password.equals(ADMIN_PASSWORD)))
-			return ;
+			return;
 
-		throw new AdminNotExistsException("Company with the given parameters (email: " + email + ", password: "
-				+ password + ") does not exist!");
+		throw new AdminNotExistsException(
+				"Company with the given parameters (email: " + email + ", password: " + password + ") does not exist!");
 	}
 
 	@Override
-	public void addCompany(Company company) {
+	public void addCompany(Company company) throws CompanyAlreadyExistsException {
 
-		try {
-			validations.validateCompanyAdditionAllowed(company);
-		} catch (CompanyAlreadyExistsException e) {
-			return;
-		}
+		validations.validateCompanyAdditionAllowed(company);
+
 		company.setPassword(company.getPassword());
 
 		companyRepository.save(company);
@@ -56,26 +53,21 @@ public class AdminServiceImplementation extends ClientService implements AdminSe
 	}
 
 	@Override
-	public void updateCompany(Company newCompany) {
+	public void updateCompany(Company newCompany)
+			throws UpdateNotAllowedException, CompanyAlreadyExistsException, CompanyNotExistsException {
 
-		try {
-			validations.validateUpdateAllowed(newCompany);
-		} catch (UpdateNotAllowedException | CompanyAlreadyExistsException | CompanyNotExistsException e) {
-			return;
-		}
+		validations.validateUpdateAllowed(newCompany);
+
 		newCompany.setPassword(newCompany.getPassword());
 		companyRepository.save(newCompany);
 
 	}
 
 	@Override
-	public void deleteCompany(int id) {
+	public void deleteCompany(int id) throws CompanyNotExistsException {
 
-		try {
-			validations.validateCompanyExists(id);
-		} catch (CompanyNotExistsException e) {
-			return;
-		}
+		validations.validateCompanyExists(id);
+
 		Company company = getOneCompany(id);
 		company.clearCoupons();
 		companyRepository.deleteById(id);
@@ -90,24 +82,19 @@ public class AdminServiceImplementation extends ClientService implements AdminSe
 
 	@Override
 
-	public Company getOneCompany(int id) {
-		try {
-			validations.validateCompanyExists(id);
-		} catch (CompanyNotExistsException e) {
-			return null;
-		}
+	public Company getOneCompany(int id) throws CompanyNotExistsException {
+
+		validations.validateCompanyExists(id);
+
 		return companyRepository.findById(id).get();
 
 	}
 
 	@Override
-	public void addCustomer(Customer customer) {
+	public void addCustomer(Customer customer) throws CustomerAlreadyExistsException {
 
-		try {
-			validations.validateCustomerExists(customer.getEmail());
-		} catch (CustomerAlreadyExistsException e) {
-			return;
-		}
+		validations.validateCustomerExists(customer.getEmail());
+
 		customer.setPassword(customer.getPassword());
 
 		customerRepository.save(customer);
@@ -115,13 +102,10 @@ public class AdminServiceImplementation extends ClientService implements AdminSe
 
 	@Override
 
-	public void updateCustomer(Customer newCustomer) {
+	public void updateCustomer(Customer newCustomer) throws CustomerAlreadyExistsException, customerNotExistsException {
 
-		try {
-			validations.validateUpdateAllowed(newCustomer);
-		} catch (CustomerAlreadyExistsException | customerNotExistsException e) {
-			return;
-		}
+		validations.validateUpdateAllowed(newCustomer);
+
 		newCustomer.setPassword(newCustomer.getPassword());
 		customerRepository.save(newCustomer);
 
@@ -129,23 +113,18 @@ public class AdminServiceImplementation extends ClientService implements AdminSe
 
 	@Override
 
-	public void deleteCustomer(int id) {
+	public void deleteCustomer(int id) throws customerNotExistsException {
 
-		try {
-			validations.validateCustomerExists(id);
-		} catch (customerNotExistsException e) {
-			return;
-		}
+		validations.validateCustomerExists(id);
+
 		customerRepository.deleteById(id);
 	}
 
 	@Override
-	public Customer getOneCustomer(int id) {
-		try {
-			validations.validateCustomerExists(id);
-		} catch (customerNotExistsException e) {
-			return null;
-		}
+	public Customer getOneCustomer(int id) throws customerNotExistsException {
+
+		validations.validateCustomerExists(id);
+
 		return customerRepository.getById(id);
 
 	}
@@ -157,14 +136,12 @@ public class AdminServiceImplementation extends ClientService implements AdminSe
 	}
 
 	@Override
-	public void setCompanyRepository(CompanyRepository companyRepository) 
-	{
+	public void setCompanyRepository(CompanyRepository companyRepository) {
 		this.companyRepository = companyRepository;
 	}
 
 	@Override
-	public void setCustomerRepository(CustomerRepository customerRepository)
-	{
+	public void setCustomerRepository(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
 	}
 }

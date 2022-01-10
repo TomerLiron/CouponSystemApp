@@ -1,6 +1,7 @@
 package com.evgenie_tomer_itay.services;
 
 
+import com.evgenie_tomer_itay.entities.Category;
 import com.evgenie_tomer_itay.entities.Coupon;
 import com.evgenie_tomer_itay.entities.Customer;
 import com.evgenie_tomer_itay.exceptions.couponExceptions.couponExpiredException;
@@ -11,7 +12,6 @@ import com.evgenie_tomer_itay.exceptions.couponExceptions.noCouponsLeftException
 import com.evgenie_tomer_itay.repositories.CouponRepository;
 import com.evgenie_tomer_itay.repositories.CustomerRepository;
 import com.evgenie_tomer_itay.utilities.Validations;
-import jdk.jfr.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -40,8 +40,8 @@ public class CustomerServiceImplementation extends ClientService implements Cust
 	}
 
 	@Override
-	public void purchaseCoupon(int couponId) {
-		try {
+	public void purchaseCoupon(int couponId) throws couponNotExistsException, noCouponsLeftException, couponAlreadyPurchasedException, couponExpiredException  {
+		
 			Customer customer = customerRepository.findById(customerId).get();
 			List<Coupon> customerCoupons = getPurchasedCoupons();
 			validations.validatePurchaseAllowed(couponId, customerCoupons);
@@ -50,10 +50,7 @@ public class CustomerServiceImplementation extends ClientService implements Cust
 			customer.purchaseCoupon(coupon);
 			couponRepository.save(coupon);
 			customerRepository.save(customer);
-		} catch (couponNotExistsException | noCouponsLeftException | couponExpiredException
-				| couponAlreadyPurchasedException e) {
-			System.err.println(e.getMessage());
-		}
+		
 
 	}
 

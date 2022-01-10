@@ -2,12 +2,16 @@
 package com.evgenie_tomer_itay.services;
 
 
+import com.evgenie_tomer_itay.entities.Category;
 import com.evgenie_tomer_itay.entities.Coupon;
 import com.evgenie_tomer_itay.entities.Customer;
 import com.evgenie_tomer_itay.exceptions.customerExceptions.CustomerAlreadyExistsException;
+import com.evgenie_tomer_itay.exceptions.customerExceptions.couponAlreadyPurchasedException;
 import com.evgenie_tomer_itay.exceptions.companyExceptions.CompanyNotExistsException;
+import com.evgenie_tomer_itay.exceptions.couponExceptions.couponExpiredException;
+import com.evgenie_tomer_itay.exceptions.couponExceptions.couponNotExistsException;
+import com.evgenie_tomer_itay.exceptions.couponExceptions.noCouponsLeftException;
 import com.evgenie_tomer_itay.utilities.Validations;
-import jdk.jfr.Category;
 
 import java.util.List;
 
@@ -18,6 +22,7 @@ public interface CustomerService {
 	 * @return true if the login is successful (email and password match with a
 	 *         customer in the Database) A custom exception will be thrown from the
 	 *         Validations class if the login details are incorrect.
+	 * @throws CompanyNotExistsException/ CustomerAlreadyExistsException        
 	 * @see Validations Class for more details
 	 */
 	public void login(String email, String password) throws CompanyNotExistsException, CustomerAlreadyExistsException;
@@ -29,10 +34,12 @@ public interface CustomerService {
 	 *                 -coupon was already purchased
 	 *                 -coupon is unavailable (amount is zero) 
 	 *                 -coupon has expired
+	 * 
+	 * @throws couponNotExistsException/ noCouponsLeftException/ couponAlreadyPurchasedException/ couponExpiredException
 	 * @see Validations Class for more details
 	 * 
 	 */
-	public void purchaseCoupon(int couponId);
+	public void purchaseCoupon(int couponId) throws couponNotExistsException, noCouponsLeftException, couponAlreadyPurchasedException, couponExpiredException;
 	/**
 	 * @param category 
 	 * @return all coupons by category form the Database 

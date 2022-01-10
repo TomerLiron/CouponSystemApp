@@ -1,5 +1,6 @@
 package com.evgenie_tomer_itay.services;
 
+import com.evgenie_tomer_itay.entities.Category;
 import com.evgenie_tomer_itay.entities.Company;
 import com.evgenie_tomer_itay.entities.Coupon;
 import com.evgenie_tomer_itay.exceptions.couponExceptions.CouponAlreadyExistsException;
@@ -9,7 +10,6 @@ import com.evgenie_tomer_itay.exceptions.companyExceptions.companyNotOwnsCouponE
 import com.evgenie_tomer_itay.repositories.CompanyRepository;
 import com.evgenie_tomer_itay.repositories.CouponRepository;
 import com.evgenie_tomer_itay.utilities.Validations;
-import jdk.jfr.Category;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -20,92 +20,84 @@ import java.util.List;
 @Service
 @Scope("prototype")
 public class CompanyServiceImplementation extends ClientService implements CompanyService {
-    @Autowired
-    private CompanyRepository companyRepository;
-    @Autowired
-    private CouponRepository couponRepository;
-    @Autowired
-    Validations validations;
+	@Autowired
+	private CompanyRepository companyRepository;
+	@Autowired
+	private CouponRepository couponRepository;
+	@Autowired
+	Validations validations;
 
-    @Getter
-    private int companyId = -1;
+	@Getter
+	private int companyId = -1;
 
-    @Override
+	@Override
 
-    public void login(String email, String password) throws CompanyNotExistsException {
-        validations.validateCompanyExists(email, password);
-        companyId = companyRepository.getOneCompanyByEmailAndPassword(email, password).getId();
+	public void login(String email, String password) throws CompanyNotExistsException {
+		validations.validateCompanyExists(email, password);
+		companyId = companyRepository.getOneCompanyByEmailAndPassword(email, password).getId();
 
-    }
+	}
 
-    @Override
+	@Override
 
-    public void addCoupon(Coupon coupon) {
-        try {
-            validations.validateCouponTitleExist(coupon.getTitle(), companyId);
-        } catch (CouponAlreadyExistsException e) {
-            System.err.println(e.getMessage());
-            return;
-        }
-        Company company = companyRepository.findById(companyId).get();
-        company.addToCoupons(coupon);
-        companyRepository.save(company);
-    }
+	public void addCoupon(Coupon coupon) throws CouponAlreadyExistsException {
 
-    @Override
+		validations.validateCouponTitleExist(coupon.getTitle(), companyId);
 
-    public void updateCoupon(Coupon coupon) {
-        try {
-            validations.validateUpdateAllowed(coupon, companyId);
-        } catch (couponNotExistsException | CouponAlreadyExistsException | companyNotOwnsCouponException e) {
-            System.err.println(e.getMessage());
-            return;
-        }
-        couponRepository.save(coupon);
-    }
+		Company company = companyRepository.findById(companyId).get();
+		company.addToCoupons(coupon);
+		companyRepository.save(company);
+	}
 
-    @Override
+	@Override
 
-    public void deleteCoupon(int couponId) {
+	public void updateCoupon(Coupon coupon)
+			throws couponNotExistsException, CouponAlreadyExistsException, companyNotOwnsCouponException {
 
-        Company company = companyRepository.findById(companyId).get();
-        try {
-            validations.validateDeleteAllowed(couponId, companyId);
-        } catch (couponNotExistsException | companyNotOwnsCouponException e) {
-            System.err.println(e.getMessage());
-            return;
-        }
-        Coupon coupon = couponRepository.findById(couponId).get();
+		validations.validateUpdateAllowed(coupon, companyId);
 
-        company.removeCoupon(coupon);
-        companyRepository.save(company);
-        couponRepository.delete(coupon);
+		couponRepository.save(coupon);
+	}
 
-    }
+	@Override
 
-    @Override
+	public void deleteCoupon(int couponId) throws couponNotExistsException, companyNotOwnsCouponException {
 
-    public List<Coupon> getAllCoupons() {
-        return couponRepository.findByCompanyId(companyId);
-    }
+		Company company = companyRepository.findById(companyId).get();
 
-    @Override
+		validations.validateDeleteAllowed(couponId, companyId);
 
-    public List<Coupon> getCouponsByCategory(Category category) {
-        return couponRepository.findCompanyCouponsByCategory(companyId, category);
-    }
+		Coupon coupon = couponRepository.findById(couponId).get();
 
-    @Override
+		company.removeCoupon(coupon);
+		companyRepository.save(company);
+		couponRepository.delete(coupon);
 
-    public List<Coupon> getCouponsByMaximumPrice(int maxPrice) {
-        return couponRepository.findCompanyCouponsByPrice(companyId, maxPrice);
-    }
+	}
 
-    @Override
+	@Override
 
-    public Company companyDetails() {
+	public List<Coupon> getAllCoupons() {
+		return couponRepository.findByCompanyId(companyId);
+	}
 
-        return companyRepository.findById(companyId).get();
-    }
+	@Override
+
+	public List<Coupon> getCouponsByCategory(Category category) {
+		return couponRepository.findCompanyCouponsByCategory(companyId, category);
+	}
+
+	@Override
+
+	public List<Coupon> getCouponsByMaximumPrice(int maxPrice) {
+		return couponRepository.findCompanyCouponsByPrice(companyId, maxPrice);
+	}
+
+	@Override
+
+	public Company companyDetails() {
+
+		return companyRepository.findById(companyId).get();
+	}
 
 }
