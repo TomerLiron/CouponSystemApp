@@ -1,8 +1,8 @@
 package com.evgenie_tomer_itay.repositories;
 
 
+import com.evgenie_tomer_itay.entities.Category;
 import com.evgenie_tomer_itay.entities.Coupon;
-import jdk.jfr.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
