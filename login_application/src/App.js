@@ -19,10 +19,12 @@ function App() {
 
   useEffect(() => {
     const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
+    const storedUserTokenInInformation = localStorage.getItem('token');
     const storedUserUserInformation=localStorage.getItem('user');
     if (storedUserLoggedInInformation === "1") {
-      dispatch(authActions.login());
+      dispatch(authActions.login(storedUserTokenInInformation));
     }
+    console.log(storedUserTokenInInformation);
     if(storedUserUserInformation==="1"){
       dispatch(UserActions.company());
     }else if(storedUserUserInformation==="2"){
