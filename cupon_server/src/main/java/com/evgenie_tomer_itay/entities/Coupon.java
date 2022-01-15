@@ -1,5 +1,7 @@
 package com.evgenie_tomer_itay.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +23,6 @@ public class Coupon {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private int id;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -31,6 +32,7 @@ public class Coupon {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "customers_vs_coupons", joinColumns = @JoinColumn(name = "coupon_id"), inverseJoinColumns = @JoinColumn(name = "customer_id"))
 	@Exclude
+	@JsonIgnore
 	private List<Customer> customers;
 
 	@Enumerated(EnumType.STRING)

@@ -1,5 +1,6 @@
 package com.evgenie_tomer_itay.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +32,7 @@ public class Company {
 	private String email;
 
 	@Column(columnDefinition = "LONGTEXT", nullable = false)
+	@JsonIgnore
 	private String password;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH,
