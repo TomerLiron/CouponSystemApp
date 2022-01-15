@@ -1,5 +1,9 @@
 # CouponSystemApp
 -----
+15/1/2022 (Tomer)
+Update java entities to how build json
+Update react Logins and store to save token
+-----
 10/1/2022 (Itay)
 
 - Updated company Controller
