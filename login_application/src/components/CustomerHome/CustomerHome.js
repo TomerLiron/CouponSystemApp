@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '../UI/Card/Card';
 import classes from './Home.module.css';
 
-import GetCoupon from './Get/GetCoupon'
+import GetCoupon from './Get/GetCoupon';
 
 const CustomerHome = (props) => {
   return (

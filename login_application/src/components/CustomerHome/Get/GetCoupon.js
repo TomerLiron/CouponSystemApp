@@ -1,89 +1,37 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import CouponGeter from './CouponGeter';
+import './GetCoupon.css';
+import { useState } from 'react';
 
-import { authActions } from '../../../store/auth';
+const GetCoupon = (props) => {
+    const [isEditing, setIsEditing] = useState(false);
 
-import Button from '../../UI/Button/Button';
-import classes from '../Home.module.css';
-import CouponList from './CouponList';
+    const saveExpenseDataHandler = (enteredExpenseData) => {
+        setIsEditing(false);
+    };
 
-function GetCoupon() {
-  const token = useSelector(state => state.auth.token);
-  const dispatch = useDispatch();
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+    const startEditingHandler = () => {
+        console.log('2')
+        setIsEditing(true);
+    };
+    const stopEditingHandler = () => {
+        console.log('3');
+        setIsEditing(false);
+    };
+    return (
+        <div className='new-expense'>
 
-  const fetchCouponsHandler = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch("/customer/all/" + token);
-      if (!response.ok) {
-        window.alert("Session timeout!");
-        // dispatch(authActions.logout());
-        throw new Error("Something went wrong!");
-      }
-
-      console.log("Response Okay!");
-      const data = await response.json();
-      console.log(JSON.stringify(data));
-      // id: 0
-      // title":"Coupon_49","
-      // details":"This is a discription for coupon 49","
-      // date":"Sun Jan 02 21:45:14 IST 2022"}
-      const transformedMovies = data.map((couponData) => {
-        return {
-          id: couponData.id,
-          company: couponData.company,
-          category: couponData.category,
-          title: couponData.title,
-          description: couponData.description,
-          amount: couponData.amount,
-          startDate: couponData.startDate,
-          endDate: couponData.endDate,
-          price: couponData.price,
-          image: couponData.image,
-
-        };
-      });
-      setMovies(transformedMovies);
-    } catch (error) {
-      setError(error.message);
-    }
-    setIsLoading(false);
-  }, [dispatch, token]);
-
-  useEffect(() => {
-    fetchCouponsHandler();
-  }, [fetchCouponsHandler]);
-
-
-  let content = <p></p>;
-
-  if (movies.length > 0) {
-    content = <CouponList movies={movies} />;
-  }
-
-  if (error) {
-    content = <p>{error}</p>;
-  }
-
-  if (isLoading) {
-    content = <p>Loading...</p>;
-  }
-
-  return (
-    <div className={classes.actions}>
-      <form onSubmit={fetchCouponsHandler}>
-        <Button type="submit" className={classes.btn}>
-          GET Coupon
-        </Button>
-        <section>{content}</section>
-      </form>
-
-    </div>
-  );
+            {!isEditing && (
+                <button onClick={startEditingHandler}>GetCoupon</button>
+            )}
+            {isEditing && (<button onClick={stopEditingHandler}>Closed </button>
+            )}
+            {isEditing && (<CouponGeter
+                onSaveExpenseData={saveExpenseDataHandler}
+                onCancel={stopEditingHandler}
+            />
+                //<button onClick={stopEditingHandler}>st</button>&&
+            )}
+        </div>
+    );
 };
-
 export default GetCoupon;

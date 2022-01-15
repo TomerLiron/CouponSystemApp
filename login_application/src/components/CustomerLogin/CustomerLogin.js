@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux";
 
 import classes from './Login.module.css';
 import { UserActions } from '../../store/User';
-// import { loginActions } from "../../store/login";
 import { authActions } from '../../store/auth';
 import { useCallback, useRef, useState } from "react";
 import Card from '../UI/Card/Card';
@@ -52,7 +51,7 @@ const CustomerLogin = () => {
       console.log("Okay!");
       const token = await response.text();
       console.log("Got token: " + token);
-      localStorage.setItem('isLoggedIn', '1');
+
       dispatch(authActions.login(token));
     } catch (error) {
       console.log(error.message);

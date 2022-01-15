@@ -51,7 +51,6 @@ const AdminLogin = () => {
       console.log("Okay!");
       const token = await response.text();
       console.log("Got token: " + token);
-      localStorage.setItem('isLoggedIn', '1');
       dispatch(authActions.login(token));
     } catch (error) {
       console.log(error.message);

@@ -1,25 +1,28 @@
 import React from 'react';
 
-import Coupon from './Coupon';
 import classes from './CouponList.module.css';
+import classesCoupon from './Coupon.module.css';
 
-const CouponList = (props) => {
-  console.log(props.id)
+
+const CouponList = (props,key) => {
+  console.log("8");
   return (
     <ul className={classes['movies-list']}>
       {props.movies.map((coupon) => (
-        <Coupon
-          id={coupon.id}
-          company={coupon.company}
-          category={coupon.category}
-          title={coupon.title}
-          description={coupon.description}
-          amount={coupon.amount}
-          startDate={coupon.startDate}
-          endDate={coupon.endDate}
-          price={coupon.price}
-          image={coupon.image}
-        />
+            <li key={props.id} className={classesCoupon.Coupon}>
+            <h2>{coupon.title}</h2>
+            <h4>{"Category:" + coupon.category}</h4>
+            <p>{"Id:" + coupon.id}</p>
+            <p>{"company name:" + coupon.company}</p>
+            <p>{"" + coupon.description}</p>
+            <h5>{"amount of coupon " + coupon.amount}</h5>
+            <h5>{"start Date: " + coupon.startDate}</h5>
+            <h5>{"end Date: " + coupon.endDate}</h5>
+            <h4>{"price:" + coupon.price}</h4>
+            <img src={"" + coupon.image} alt="" />
+      
+          </li>
+
       ))}
     </ul>
   );
