@@ -45,21 +45,21 @@ public class Customer_controller {
             ArrayList<Map<String, String>> Map = new ArrayList<Map<String, String>>();
             //@RequestParam String category,@RequestParam String title,@RequestParam String description, @RequestParam int amount,
             //@RequestParam String startDate, @RequestParam String endDate,@RequestParam double price,@RequestParam String image
-            for (int i = 0; i < coupons.size(); i++) {
-                Map<String, String> m = new HashMap<String, String>();
-                m.put("id", "" + coupons.get(i).getId());
-                m.put("company", "" + coupons.get(i).getCompany().getId());
-                m.put("category", "" + coupons.get(i).getCategory());
-                m.put("title", coupons.get(i).getTitle());
-                m.put("description", coupons.get(i).getDescription());
-                m.put("amount", "" + coupons.get(i).getAmount());
-                m.put("startDate", "" + coupons.get(i).getStartDate());
-                m.put("endDate", "" + coupons.get(i).getEndDate());
-                m.put("price", "" + coupons.get(i).getPrice());
-                m.put("image", coupons.get(i).getImage());
-                Map.add(m);
-            }
-            return new ResponseEntity<ArrayList<Map<String, String>>>(Map, HttpStatus.OK);
+//            for (int i = 0; i < coupons.size(); i++) {
+//                Map<String, String> m = new HashMap<String, String>();
+//                m.put("id", "" + coupons.get(i).getId());
+//                m.put("company", "" + coupons.get(i).getCompany().getId());
+//                m.put("category", "" + coupons.get(i).getCategory());
+//                m.put("title", coupons.get(i).getTitle());
+//                m.put("description", coupons.get(i).getDescription());
+//                m.put("amount", "" + coupons.get(i).getAmount());
+//                m.put("startDate", "" + coupons.get(i).getStartDate());
+//                m.put("endDate", "" + coupons.get(i).getEndDate());
+//                m.put("price", "" + coupons.get(i).getPrice());
+//                m.put("image", coupons.get(i).getImage());
+//                Map.add(m);
+//            }
+            return new ResponseEntity<List<Coupon>>(coupons, HttpStatus.OK);
         }
         return new ResponseEntity<String>("No Session!", HttpStatus.BAD_REQUEST);
     }
