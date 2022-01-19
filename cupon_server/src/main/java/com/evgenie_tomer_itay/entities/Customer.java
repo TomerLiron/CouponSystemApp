@@ -36,6 +36,7 @@ public class Customer {
 	private String email;
 
 	@Column(columnDefinition = "LONGTEXT", nullable = false)
+	@JsonIgnore
 	private String password;
 	
 	@Exclude
