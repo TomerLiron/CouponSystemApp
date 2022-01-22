@@ -3,7 +3,6 @@ import React from 'react';
 import classes from '../css/CouponList.module.css';
 import classesCoupon from '../css/Coupon.module.css';
 
-
 const CouponList = (props) => {
   return (
     <ul className={classes['movies-list']}>

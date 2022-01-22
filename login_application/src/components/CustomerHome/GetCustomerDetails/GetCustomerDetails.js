@@ -1,8 +1,8 @@
-import CouponGeter from './CouponGeter';
+import CouponGeter from './DetailsGeter';
 import './GetCoupon.css';
 import { useState } from 'react';
 
-const GetCoupon = (props) => {
+const GetCustomerDetails = (props) => {
     const [isEditing, setIsEditing] = useState(false);
 
     const saveExpenseDataHandler = (enteredExpenseData) => {
@@ -31,4 +31,4 @@ const GetCoupon = (props) => {
         </div>
     );
 };
-export default GetCoupon;
+export default GetCustomerDetails;
