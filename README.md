@@ -1,5 +1,8 @@
 # CouponSystemApp
 -----
+22/1/2022 (Tomer)
+- Updated customer Controller
+-----
 15/1/2022 (Tomer)
 Update java entities to how build json
 Update react Logins and store to save token
