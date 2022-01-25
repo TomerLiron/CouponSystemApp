@@ -32,7 +32,7 @@ public class Company {
 	private String email;
 
 	@Column(columnDefinition = "LONGTEXT", nullable = false)
-	@JsonIgnore
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH,
@@ -46,6 +46,7 @@ public class Company {
 		coupon.setCompany(this);
 
 	}
+
 
 	public void clearCoupons() {
 		coupons.clear();
