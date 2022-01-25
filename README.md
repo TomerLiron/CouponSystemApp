@@ -1,5 +1,10 @@
 # CouponSystemApp
 -----
+25/1/2021 (Evgenie)
+
+Uploaded Admin frontend beta as separate part (not integrated with project yet)
+
+-----
 22/1/2022 (Tomer)
 - Updated customer Controller
 -----
