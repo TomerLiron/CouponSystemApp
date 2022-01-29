@@ -6,7 +6,7 @@ import { authActions } from '../../../store/auth';
 import CouponList from './CompanyList';
 import { Box, Container } from '@mui/material';
 
-function CompanyGeter() {
+const CompanyGeter = (props) => {
   const token = useSelector(state => state.auth.token);
   const dispatch = useDispatch();
   const [companys, setCompanys] = useState([]);
@@ -36,9 +36,14 @@ function CompanyGeter() {
   const fetchCouponsHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
-
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json", token: token },
+      body: props.id,
+    };
     try {
-      const response = await fetch("/admin/getAllCompanies/" + token);
+      console.log("id"+props.id)
+      const response = await fetch("/admin/getOneCompany/", requestOptions);
       if (!response.ok) {
         window.alert("Session timeout!");
         // dispatch(authActions.logout());

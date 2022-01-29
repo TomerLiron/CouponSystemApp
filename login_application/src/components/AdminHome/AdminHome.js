@@ -1,14 +1,9 @@
-// import React from 'react';
 import * as React from 'react';
-import Card from '../UI/Card/Card';
-import classes from './Home.module.css';
 import GetCompany from './GetCompany/GetCompany';
 import AddCompany from './AddCompany/AddCompany';
-import Button from '@mui/material/Button';
+import GetOneCompany from './GetOneCompany/GetOneCompany';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
-
-
 
 const AdminHome = (props) => {
   return (
@@ -25,24 +20,18 @@ const AdminHome = (props) => {
       }}
     >
       <ButtonGroup
-        justifyContent="center"
+        // justifyContent="center"
         size="large"
-        fullWidth="true"
+        fullWidth={true}
         orientation="vertical"
         aria-label="vertical outlined button group"
         variant="contained"
-
       >
         <GetCompany />
+        <GetOneCompany/>
         <AddCompany />
       </ButtonGroup>
     </Box>
-    // <Card className={classes.home}>
-    //   <h1>Welcome back!Admin</h1>
-    //  <GetCompany/>
-    //  <AddCompany/>
-    // </Card>
-
   );
 };
 

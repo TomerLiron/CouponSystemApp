@@ -24,9 +24,6 @@ const GetCoupon = (props) => {
             {!isEditing && (
                 <Button onClick={startEditingHandler}>Get Company</Button>
             )}
-
-                {/* {isEditing && (<Button size="small" onClick={stopEditingHandler}>Closed </Button>
-                )} */}
                 {isEditing && (<Box sx={{
                     m: 1,
                     boxShadow: 5,

@@ -6,7 +6,6 @@ import DeleteCustomer from './DeleteCustomer/DeleteCompany'
 
 import {
   Avatar,
-  // BottomNavigation,
   Box,
   Card,
   // Checkbox,
