@@ -39,11 +39,8 @@ const Login = () => {
     }
   });
 
-  const loginHandler = useCallback(async (values) => {
+  const loginHandler = useCallback(async () => {
     try {
-      console.log("loge");
-      // event.preventDefault();
-
       const creds = {
         email:formik.values.email,
         password: formik.values.password,
@@ -112,67 +109,7 @@ const Login = () => {
             >
             </Grid>
           </Grid>
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
         
-
-
-
           <Box
             sx={{
               pb: 1,
