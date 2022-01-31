@@ -2,7 +2,7 @@ import Coupon from './Coupon';
 import './AddCoupon.css';
 import { useState } from 'react';
 
-const DeleteCoupon = (props) => {
+const AddCoupon = (props) => {
     const [isEditing, setIsEditing] = useState(false);
 
     const saveExpenseDataHandler = (enteredExpenseData) => {
@@ -15,11 +15,9 @@ const DeleteCoupon = (props) => {
     };
 
     const startEditingHandler = () => {
-        console.log('2')
         setIsEditing(true);
     };
     const stopEditingHandler = () => {
-        console.log('3');
 
         setIsEditing(false);
     };
@@ -28,13 +26,12 @@ const DeleteCoupon = (props) => {
             {!isEditing && (
                 <button onClick={startEditingHandler}>AddCoupon</button>
             )}
-            {isEditing && (<Coupon
-                    onSaveExpenseData={saveExpenseDataHandler}
-                    onCancel={stopEditingHandler}
+            {isEditing && (<Coupon 
+                    onStopEditing ={stopEditingHandler}
                 />
                
             )}
         </div>
     );
 };
-export default DeleteCoupon;
+export default AddCoupon;

@@ -5,37 +5,45 @@ import { authActions } from '../../../store/auth';
 
 import Button from '../../UI/Button/Button';
 import classes from '../Home.module.css';
+import CategorySorter from '../Sort/CategorySorter';
+import PriceSorter from '../Sort/PriceSorter'
+import Coupon from './Coupon';
 import CouponList from './CouponList';
-
 function GetCoupon() {
   const token = useSelector(state => state.auth.token);
-  const dispatch = useDispatch();
-  const [movies, setMovies] = useState([]);
+  // const dispatch = useDispatch();
+  const [coupons, setCoupons] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchCouponsHandler = useCallback(async () => {
+  const fetchCouponsHandler = useCallback(async (event) => {
+
+    const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json', token }
+        };
+        
+        
+    event.preventDefault();
     setIsLoading(true);
     setError(null);
+  
     try {
-      const response = await fetch("/company/all/" + token);
+      const response = await fetch("/company/allCoupons" ,requestOptions);
       if (!response.ok) {
         window.alert("Session timeout!");
-        dispatch(authActions.logout());
+        //dispatch(authActions.logout());
         throw new Error("Something went wrong!");
       }
 
       console.log("Response Okay!");
       const data = await response.json();
-      console.log(JSON.stringify(data));
-      // id: 0
-      // title":"Coupon_49","
-      // details":"This is a discription for coupon 49","
-      // date":"Sun Jan 02 21:45:14 IST 2022"}
+      console.log(data)
+      
       const transformedMovies = data.map((couponData) => {
         return {
           id: couponData.id,
-          company: couponData.company,
+          company: couponData.company.id,
           category: couponData.category,
           title: couponData.title,
           description: couponData.description,
@@ -44,15 +52,15 @@ function GetCoupon() {
           endDate: couponData.endDate,
           price: couponData.price,
           image: couponData.image,
-
+          
         };
       });
-      setMovies(transformedMovies);
+      setCoupons(transformedMovies);
     } catch (error) {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [dispatch, token]);
+  }, [token]);
 
   useEffect(() => {
     fetchCouponsHandler();
@@ -61,9 +69,15 @@ function GetCoupon() {
 
   let content = <p></p>;
 
-  if (movies.length > 0) {
-    content = <CouponList movies={movies} />;
-  }
+  if (coupons.length > 0) {
+    content = (
+      
+     
+    <CouponList coupons={coupons}
+    onDelete={(id)=>setCoupons(coupons=>coupons.filter((coupon)=>coupon.id!==id))} />
+    
+    )}
+ 
 
   if (error) {
     content = <p>{error}</p>;
@@ -75,10 +89,12 @@ function GetCoupon() {
 
   return (
     <div className={classes.actions}>
-      <form onSubmit={fetchCouponsHandler}>
-        <Button type="submit" className={classes.btn}>
-          GET Coupon
+      <form> 
+        <Button type="submit" className={classes.btn} onClick ={fetchCouponsHandler}>
+          GET Coupons
         </Button>
+        <CategorySorter onSetCoupons={(data)=>setCoupons(data)}/>
+         <PriceSorter onSetCoupons={(data)=>setCoupons(data)}/>
         <section>{content}</section>
       </form>
 

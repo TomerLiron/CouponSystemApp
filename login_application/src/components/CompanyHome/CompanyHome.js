@@ -4,16 +4,17 @@ import classes from './Home.module.css';
 
 import GetCoupon from './Get/GetCoupon';
 import AddCoupon from './Add/AddCoupon';
-import DeleteCoupon from './Delete/DeleteCoupon';
+import CompanyDetailsGetter from './GetDetails/CompanyDetailsGetter';
 
-const CompanyHome = (props) => {
+const CompanyHome = () => {
   return (
       <Card className={classes.home}>
         
         <h1>Welcome back!</h1>
         <GetCoupon/>
         <AddCoupon/>
-        <DeleteCoupon/>
+        <CompanyDetailsGetter/>
+        
       </Card>
 
   );

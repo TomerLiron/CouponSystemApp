@@ -1,7 +1,6 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import './Coupon.css';
 import { useDispatch, useSelector } from "react-redux";
-
 
 const Coupon = (props) => {
     const token = useSelector(state => state.auth.token);
@@ -21,7 +20,7 @@ const Coupon = (props) => {
         // could add validation here...
 
         //id, String title, String details, String date
-        const coupon = {
+        let coupon = {
             category: categoryRef.current.value,
             title: titleRef.current.value,
             description: descriptionRef.current.value,
@@ -36,12 +35,13 @@ const Coupon = (props) => {
         // POST request using fetch inside useEffect React hook
         const requestOptions = {
             method: "POST",
-            headers: { "Content-Type": "application/json", token: token },//
+            headers: { "Content-Type": "application/json", token},
             body: JSON.stringify(coupon),
         };
         try {
-            console.log(coupon.title)
-            const response = await fetch("/company/addCoupon", requestOptions);
+            console.log(coupon)
+
+            const response = await fetch("/company/addCoupon/", requestOptions);
             if (!response.ok) {
                 window.alert("Session timeout!");
                 // dispatch(loginActions.logout());
@@ -49,20 +49,18 @@ const Coupon = (props) => {
             }
 
             console.log("Response Okay!");
-            const id = await response.text();
             console.log("coupon sent to server: " + coupon);
-            // id: 0
-            // title":"Coupon_49","
-            // details":"This is a discription for coupon 49","
-            // date":"Sun Jan 02 21:45:14 IST 2022"}
-            const cuponWithId = { "id": id, ...coupon };
-            console.log("props.onAddCoupon: " + cuponWithId);
-            props.onAddCoupon(cuponWithId);
+            
+           
         } catch (error) {
-            console.log(error.message);
+            window.alert(error)
+        }
+        finally{
+            props.onStopEditing()
         }
         //setIsLoading(false);
-    }, [props,token]);
+    }, [props, token]);
+        
 
     return (
         <form id="form" onSubmit={submitHandler}>
@@ -84,7 +82,7 @@ const Coupon = (props) => {
                     <input type="date" id="startDate" ref={startDateRef} />
                 </div>
                 <div className='new-expense__control'>
-                    <label htmlFor="endDate">start Date</label>
+                    <label htmlFor="endDate">end Date</label>
                     <input type="date" id="endDate" ref={endDateRef} />
                     <div className='new-expense__control'>
                         <label htmlFor="price">price</label>
@@ -95,6 +93,7 @@ const Coupon = (props) => {
                         <input type="text" id="image" ref={imageRef} />
                     </div>
                 </div>
+
                 <div className="expenses-filter__control">
                     <label className="expenses-filter__label">Category</label>
                     <select className="expenses-filter__select" ref={categoryRef}>
@@ -106,8 +105,9 @@ const Coupon = (props) => {
                         <option value="HARDWARE">HARDWARE</option>
                     </select>
                 </div>
+                
                 <div className='new-expense__actions'>
-                    <button onClick={submitHandler} type='submit'>Add Expense</button>
+                    <button onClick={submitHandler} type='submit'>Add Coupon</button>
                 </div>
                 
 

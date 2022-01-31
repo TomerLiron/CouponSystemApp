@@ -1,34 +1,59 @@
-import Delete from './Delete';
 import './DeleteCoupon.css';
-import { useState } from 'react';
+import { useState, useCallback, useContext } from 'react';
+import { useSelector } from "react-redux";
+import Button from '../../UI/Button/Button';
 
-const DeleteCoupon = (props) => {
-    const [isEditing, setIsEditing] = useState(false);
 
-    const saveExpenseDataHandler = (enteredExpenseData) => {
 
-        setIsEditing(false);
-    };
+const DeleteCoupon = ({ couponId, onDelete }) => {
+    const token = useSelector(state => state.auth.token);
 
-    const startEditingHandler = () => {
-        setIsEditing(true);
-    };
-    const stopEditingHandler = () => {
-        setIsEditing(false);
-    };
+
+
+    const deleteCouponHandler = useCallback(async () => {
+
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                token
+            }
+        }
+
+        try {
+            const response = await fetch('company/deleteCoupon?id=' + couponId, requestOptions)
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+            onDelete(couponId);
+
+
+
+
+        } catch (error) {
+            // setError(error.message);
+        }
+    }, [couponId, token, onDelete]);
+
+
+
     return (
-        <div className='new-expense'>
-            {!isEditing && (
-                <button onClick={startEditingHandler}>Delete Coupon</button>
-            )}
-            {isEditing && (
-                <Delete
-                    onSaveExpenseData={saveExpenseDataHandler}
-                    onCancel={stopEditingHandler}
-                />
-                // <div>sfg</div>
-            )}
+
+        <div>
+            <Button onClick={
+                deleteCouponHandler
+
+            }
+                type='button' > Delete Coupon </Button>
+
         </div>
+
+
+
+
     );
-};
+
+}
+
 export default DeleteCoupon;
