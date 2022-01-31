@@ -55,6 +55,7 @@ function GetCoupon() {
           
         };
       });
+      console.log(transformedMovies)
       setCoupons(transformedMovies);
     } catch (error) {
       setError(error.message);

@@ -5,12 +5,11 @@ import '../Delete/DeleteCoupon.css';
 
 
 export default function UpdateCoupon(props) {
+    const oldCoupon = props.defaultData
 
     const token = useSelector(state => state.auth.token);
     
-
     const handleCouponChange=(coupon)=>{
-        const oldCoupon = props.defaultData
         props.onSetData({...oldCoupon,...coupon})
     }
 
@@ -26,6 +25,8 @@ export default function UpdateCoupon(props) {
        
 
         let coupon={
+            id:oldCoupon.id,
+            company:oldCoupon.company,
             category: categoryRef.current.value,
             title: titleRef.current.value,
             description: descriptionRef.current.value,
@@ -40,7 +41,7 @@ export default function UpdateCoupon(props) {
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', token},
-            body: JSON.stringify({coupon})
+            body: JSON.stringify(coupon)
         }
         try {
             const response = await fetch('company/updateCoupon/', requestOptions)
