@@ -20,6 +20,10 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class Company {
+	
+	public Company(int id) {
+		this.id = id;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +44,7 @@ public class Company {
 	@Exclude
 	@JsonIgnore
 	private List<Coupon> coupons;
+	
 
 	public void addToCoupons(Coupon coupon) {
 		coupons.add(coupon);
