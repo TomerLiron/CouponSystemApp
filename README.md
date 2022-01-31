@@ -1,5 +1,8 @@
 # CouponSystemApp
 -----
+31/1/2022 (Itay)
+- Updated company controller and react components
+-----
 29/1/2022 (Tomer)
 - Updated Login 
 - AdimnHome
