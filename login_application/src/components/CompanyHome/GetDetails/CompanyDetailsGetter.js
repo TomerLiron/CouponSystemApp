@@ -17,7 +17,6 @@ export default function CompanyDetailsGetter() {
 
     try {
       const response = await fetch("/company/getDetails", requestOptions);
-      console.log(response.json())
       if (!response.ok) {
         window.alert("Session timeout!");
         //dispatch(authActions.logout());
@@ -29,6 +28,7 @@ export default function CompanyDetailsGetter() {
       console.log(data)
 
       setDetails(data)
+      console.log(details)
       setShowDetails(true)
 
      
@@ -38,18 +38,15 @@ export default function CompanyDetailsGetter() {
     }
 
 
-  }, [token]);
+  }, [details, token]);
 
-     useEffect(() => {
-       handleDetails();
-     }, [handleDetails]);
+    
 
-  let content; 
-  if(!showDetails)
-  content= <Button onClick={handleDetails}>Get Details</Button>
+  let content= <Button onClick={handleDetails}>Get Details</Button>
 
   if (showDetails) {
-    content = (<Details
+    content =
+    (<Details
       company={details}
     />)
   }
