@@ -1,6 +1,8 @@
 import Coupon from './Coupon';
 import './AddCoupon.css';
 import { useState } from 'react';
+import Button from '@mui/material/Button';
+
 
 const AddCoupon = (props) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -22,9 +24,9 @@ const AddCoupon = (props) => {
         setIsEditing(false);
     };
     return (
-        <div className='new-expense'>
+        <div >
             {!isEditing && (
-                <button onClick={startEditingHandler}>AddCoupon</button>
+                <Button onClick={startEditingHandler}>Add Coupon</Button>
             )}
             {isEditing && (<Coupon 
                     onStopEditing ={stopEditingHandler}

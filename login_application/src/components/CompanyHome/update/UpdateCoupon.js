@@ -130,6 +130,7 @@ export default function UpdateCoupon(props) {
                 
                 <div className='new-expense__actions'>
                     <button onClick={submitHandler} type='submit'>Apply changes</button>
+                    <button onClick={()=>props.onUpdate()}>Cancel</button>
                 </div>
                 
 

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import './Coupon.css';
 import { useDispatch, useSelector } from "react-redux";
-
+import '../Add/AddCoupon.css'
 const Coupon = (props) => {
     const token = useSelector(state => state.auth.token);
 
@@ -63,6 +63,7 @@ const Coupon = (props) => {
         
 
     return (
+        <div className='new-expense'>
         <form id="form" onSubmit={submitHandler}>
             <div className='new-expense__controls'>
                 <div className='new-expense__control'>
@@ -108,12 +109,14 @@ const Coupon = (props) => {
                 
                 <div className='new-expense__actions'>
                     <button onClick={submitHandler} type='submit'>Add Coupon</button>
+                    <button onClick={()=>props.onStopEditing()}> Cancel </button>
                 </div>
                 
 
             </div>
 
         </form>
+        </div>
 
 
 

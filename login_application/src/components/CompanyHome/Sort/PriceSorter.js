@@ -1,6 +1,7 @@
 import React, { useState,useCallback,useEffect, useRef } from 'react';
 import { useSelector} from 'react-redux';
-import Button from '../../UI/Button/Button';
+// import Button from '../../UI/Button/Button';
+import Button from '@mui/material/Button';
 export default function PriceSorter(props) {
     const token = useSelector(state => state.auth.token);
     const [showTextBox, setShowTextBox] = useState(false)

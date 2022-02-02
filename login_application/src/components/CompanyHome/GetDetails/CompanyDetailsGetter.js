@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Button from '../../UI/Button/Button';
+import Button from '@mui/material/Button';
+
 import Details from './Details';
 
 export default function CompanyDetailsGetter() {
@@ -46,9 +47,15 @@ export default function CompanyDetailsGetter() {
 
   if (showDetails) {
     content =
-    (<Details
+    (
+      <div>
+    <Details
       company={details}
-    />)
+      hideDetails ={()=>setShowDetails(false)}
+    />
+    
+    </div>
+    )
   }
 
 

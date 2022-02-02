@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
-import Button from '../../UI/Button/Button';
+// import Button from '../../UI/Button/Button';
+import Button from '@mui/material/Button';
+
 import '../Add/Category.css'
 import { useSelector } from 'react-redux';
 export default function CategorySorter(props) {

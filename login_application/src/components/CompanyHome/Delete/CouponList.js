@@ -30,45 +30,29 @@ const CouponList = (props) => {
          <TableBody>
        <TableHead >
             <TableRow  >
-
-              <TableCell style={{ width: '5%' }} align='center'>
+              <TableCell style={{ width: '3%' }} align='left'>
                 Id
               </TableCell>
-
-              <TableCell style={{ width: '5%' }}align='center'>
+              <TableCell style={{ width: '2%' }}align='left'>
                 Title
               </TableCell>
-
-              <TableCell style={{ width: '5%' }}align='center'>
+              <TableCell style={{ width: '5%' }}align='left'>
                 Category
               </TableCell>
-
-              <TableCell style={{ width: '5%' }}align='center'>
+              <TableCell style={{ width: '5%' }}align='left'>
               Description
               </TableCell>
-
-              <TableCell style={{ width: '10%' }}align='center' >
+              <TableCell style={{ width: '5%' }}align='left'>
               Image
               </TableCell>
-
-              <TableCell style={{ width: '5%' }}align='center'>
+              <TableCell style={{ width: '5%' }}align='left'>
               Amount
-              </TableCell>
-
-              <TableCell style={{ width: '5%' }}align='center'>
+              </TableCell><TableCell style={{ width: '2%' }}align='left'>
               Start Date
-              </TableCell>
-              
-              <TableCell style={{ width: '5%' }}align='center'>
+              </TableCell><TableCell style={{ width: '2%' }}align='left'>
               End Date
-              </TableCell>
-              
-              <TableCell style={{ width: '5%' }}align='center'>
+              </TableCell><TableCell style={{ width: '2%' }}align='left'>
               Price
-              </TableCell>
-
-              <TableCell style={{ width: '5%' }}align='center'>
-    
               </TableCell>
              
             </TableRow>

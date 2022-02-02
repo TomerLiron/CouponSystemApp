@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { authActions } from '../../../store/auth';
 
-import Button from '../../UI/Button/Button';
+// import Button from '../../UI/Button/Button';
+import Button from '@mui/material/Button';
+
 import classes from '../Home.module.css';
 import CategorySorter from '../Sort/CategorySorter';
 import PriceSorter from '../Sort/PriceSorter'
@@ -91,7 +93,8 @@ function GetCoupon() {
   return (
     <div className={classes.actions}>
       <form> 
-        <Button type="submit" className={classes.btn} onClick ={fetchCouponsHandler}>
+        
+        <Button onClick ={fetchCouponsHandler}>
           GET Coupons
         </Button>
         <CategorySorter onSetCoupons={(data)=>setCoupons(data)}/>
