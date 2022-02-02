@@ -71,7 +71,6 @@ const Company = (props) => {
     <>
       <Box
         sx={{
-          // width: 1 / 4,
           display: 'flex',
           justifyContent: 'space-between',
           bgcolor: (theme) =>
@@ -88,10 +87,8 @@ const Company = (props) => {
         }}
       >
         <form onSubmit={formik.handleSubmit}>
-
           <TextField
             error={Boolean(formik.touched.email && formik.errors.email)}
-            // fullWidth
             helperText={formik.touched.email && formik.errors.email}
             label="Email Address"
             margin="normal"
@@ -104,7 +101,6 @@ const Company = (props) => {
           />
           <TextField
             error={Boolean(formik.touched.password && formik.errors.password)}
-            // fullWidth
             helperText={formik.touched.password && formik.errors.password}
             label="Password"
             margin="normal"
@@ -127,7 +123,6 @@ const Company = (props) => {
               Sign In Now
             </Button>
           </Box>
-
         </form>
       </Box>
     </>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { authActions } from '../../../store/auth';
 
-import CouponList from './CompanyList';
+import CouponList from '../CompanyList';
 import { Box, Container } from '@mui/material';
 
 function CompanyGeter() {
@@ -41,7 +41,7 @@ function CompanyGeter() {
       const response = await fetch("/admin/getAllCompanies/" + token);
       if (!response.ok) {
         window.alert("Session timeout!");
-        // dispatch(authActions.logout());
+        dispatch(authActions.logout());
         throw new Error("Something went wrong!");
       }
 
@@ -89,10 +89,8 @@ function CompanyGeter() {
           py: 8
         }}
       >
-
         <Container maxWidth={false}>
           <section>{content}</section>
-
         </Container>
       </Box>
 

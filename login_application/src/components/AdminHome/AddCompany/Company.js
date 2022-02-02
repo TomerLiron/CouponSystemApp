@@ -36,10 +36,8 @@ const Company = (props) => {
 
             console.log("Response Okay!");
             const id = await response.text();
-            console.log("coupon sent to server: " + company );
-            const cuponWithId = { "id": id, ...company  };
-            console.log("props.onAddCoupon: " + cuponWithId);
-            props.onAddCoupon(cuponWithId);
+            const CompanyWithId = { "id": id, ...company  };
+            props.onAddCompany(CompanyWithId);
             if (response.status===202){
                 window.alert(await response.text())
               }

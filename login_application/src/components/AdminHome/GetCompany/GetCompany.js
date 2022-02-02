@@ -1,9 +1,9 @@
-import CouponGeter from './CompanyGeter';
+import CompanyGeter from './CompanyGeter';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
-const GetCoupon = (props) => {
+const GetCompany = (props) => {
     const [isEditing, setIsEditing] = useState(false);
 
     const saveExpenseDataHandler = (enteredExpenseData) => {
@@ -29,7 +29,7 @@ const GetCoupon = (props) => {
                     // p: 2,
                     mt:"margin-top",
 
-                }}><CouponGeter
+                }}><CompanyGeter
                         onSaveExpenseData={saveExpenseDataHandler}
                         onCancel={stopEditingHandler}
                     />
@@ -38,4 +38,4 @@ const GetCoupon = (props) => {
         </div>
     );
 };
-export default GetCoupon;
+export default GetCompany;

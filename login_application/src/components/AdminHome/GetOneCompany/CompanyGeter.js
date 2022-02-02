@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { authActions } from '../../../store/auth';
 
-import CouponList from './CompanyList';
+import CompanyList from '../CompanyList';
 import { Box, Container } from '@mui/material';
 
 const CompanyGeter = (props) => {
@@ -33,7 +33,7 @@ const CompanyGeter = (props) => {
     setIsLoading(false);
   };
 
-  const fetchCouponsHandler = useCallback(async () => {
+  const fetchCompanysHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     const requestOptions = {
@@ -42,11 +42,10 @@ const CompanyGeter = (props) => {
       body: props.id,
     };
     try {
-      console.log("id"+props.id)
       const response = await fetch("/admin/getOneCompany/", requestOptions);
       if (!response.ok) {
         window.alert("Session timeout!");
-        // dispatch(authActions.logout());
+        dispatch(authActions.logout());
         throw new Error("Something went wrong!");
       }
 
@@ -64,17 +63,17 @@ const CompanyGeter = (props) => {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [dispatch, token]);
+  }, [dispatch, token,props.id]);
 
   useEffect(() => {
-    fetchCouponsHandler();
-  }, [fetchCouponsHandler]);
+    fetchCompanysHandler();
+  }, [fetchCompanysHandler]);
 
 
   let content = <p></p>;
 
   if (companys.length > 0) {
-    content = <CouponList companys={companys} updateFieldChanged={updateFieldChanged} removeHandler={removeHandler} />;
+    content = <CompanyList companys={companys} updateFieldChanged={updateFieldChanged} removeHandler={removeHandler} />;
   }
 
   if (error) {

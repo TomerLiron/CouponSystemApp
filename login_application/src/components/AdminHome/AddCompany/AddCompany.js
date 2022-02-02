@@ -23,7 +23,7 @@ const AddCompany = (props) => {
     return (
         <div >
             {!isEditing && (
-                <Button onClick={startEditingHandler}>AddCoupon</Button>
+                <Button onClick={startEditingHandler}>Add Company</Button>
             )}
             {isEditing && (<Company
                     onSaveExpenseData={saveExpenseDataHandler}
