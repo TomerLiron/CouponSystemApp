@@ -16,7 +16,7 @@ const CompanyGeter = (props) => {
   const updateFieldChanged = (company) => {
     setIsLoading(true);
     let newArr = companys.map((item) => {
-      if (company.id == item.id) {
+      if (company.id === item.id) {
         return { ...item, email: company.email };
       } else {
         return item;

@@ -15,8 +15,13 @@ function CompanyGeter() {
 
   const updateFieldChanged = (company) => {
     setIsLoading(true);
+    console.log("id"+company.id)
     let newArr = companys.map((item) => {
-      if (company.id == item.id) {
+      if (company.id === item.id) {
+        console.log(company.id === item.id)
+        console.log("companys"+ JSON.stringify(item))
+
+        console.log("id"+item.id)
         return { ...item, email: company.email };
       } else {
         return item;

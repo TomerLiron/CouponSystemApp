@@ -37,7 +37,8 @@ const Company = (props) => {
   const submitHandler = useCallback(async () => {
 
     const company = {
-      id: JSON.stringify(props.oldCompany.id),
+      // id: JSON.stringify(props.oldCompany.id),
+      id: props.oldCompany.id,
       name: props.oldCompany.name,
       email: formik.values.email,
       password: formik.values.password,
