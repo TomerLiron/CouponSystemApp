@@ -1,7 +1,9 @@
 # CouponSystemApp
 -----
+3/2/2022 (Itay)
+-Updated Company home and added material ui components
 31/1/2022 (Itay)
-- Updated company controller and react components
+- Updated company controller and Company home
 -----
 29/1/2022 (Tomer)
 - Updated Login 
