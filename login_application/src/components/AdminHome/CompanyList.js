@@ -3,7 +3,7 @@ import UpdateCompany from './UpdateCompany/UpdateCompany'
 import DeleteCustomer from './DeleteCustomer/DeleteCompany'
 
 import {  Avatar,Box,Card,Table,TableBody,TableCell,TableHead, TableRow,Typography} from '@mui/material';
-import { getInitials } from './GetCompany/get-initials';
+import { getInitials } from './get-initials';
 
 const CompanyList = (props) => {
   return (

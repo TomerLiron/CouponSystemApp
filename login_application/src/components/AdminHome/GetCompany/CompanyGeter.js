@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { authActions } from '../../../store/auth';
 
-import CouponList from '../CompanyList';
+import CompanyList from '../CompanyList';
 import { Box, Container } from '@mui/material';
 
 function CompanyGeter() {
@@ -33,7 +33,7 @@ function CompanyGeter() {
     setIsLoading(false);
   };
 
-  const fetchCouponsHandler = useCallback(async () => {
+  const fetchCompanysHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
@@ -62,14 +62,14 @@ function CompanyGeter() {
   }, [dispatch, token]);
 
   useEffect(() => {
-    fetchCouponsHandler();
-  }, [fetchCouponsHandler]);
+    fetchCompanysHandler();
+  }, [fetchCompanysHandler]);
 
 
   let content = <p></p>;
 
   if (companys.length > 0) {
-    content = <CouponList companys={companys} updateFieldChanged={updateFieldChanged} removeHandler={removeHandler} />;
+    content = <CompanyList companys={companys} updateFieldChanged={updateFieldChanged} removeHandler={removeHandler} />;
   }
 
   if (error) {
