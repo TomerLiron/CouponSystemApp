@@ -2,9 +2,8 @@ import CompanyGeter from './CompanyGeter'
 import { useState,useRef } from 'react';
 import Button from '@mui/material/Button';
 
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
-import { Box, Container, TextField } from '@mui/material';
+
+import { Box, TextField } from '@mui/material';
 
 const GetOneCompany = (props) => {
     const [isEditing, setIsEditing] = useState(false);

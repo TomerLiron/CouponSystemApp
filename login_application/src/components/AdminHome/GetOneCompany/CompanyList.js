@@ -1,22 +1,8 @@
-import { useState } from 'react';
 import React, { Fragment } from 'react';
-// import Button from '@mui/material/Button';
-import UpdateCompany from './UpdateCompany/UpdateCompany'
-import DeleteCustomer from './DeleteCustomer/DeleteCompany'
+import UpdateCompany from '../UpdateCompany/UpdateCompany'
+import DeleteCustomer from '../DeleteCustomer/DeleteCompany'
 
-import {
-  Avatar,
-  Box,
-  Card,
-  // Checkbox,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  // TablePagination,
-  TableRow,
-  Typography
-} from '@mui/material';
+import {  Avatar,Box,Card,Table,TableBody,TableCell,TableHead, TableRow,Typography} from '@mui/material';
 import { getInitials } from './get-initials';
 
 const CompanyList = (props) => {

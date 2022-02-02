@@ -1,20 +1,16 @@
-import { useState } from 'react';
 import React, { Fragment } from 'react';
-// import Button from '@mui/material/Button';
-import UpdateCompany from './UpdateCompany/UpdateCompany'
-import DeleteCustomer from './DeleteCustomer/DeleteCompany'
+import UpdateCompany from '../UpdateCompany/UpdateCompany'
+// import DeleteCustomer from '../DeleteCustomer/DeleteCompany'
+import DeleteCustomer from '../DeleteCustomer/DeleteCompany'
 
 import {
   Avatar,
-  // BottomNavigation,
   Box,
   Card,
-  // Checkbox,
   Table,
   TableBody,
   TableCell,
   TableHead,
-  // TablePagination,
   TableRow,
   Typography
 } from '@mui/material';
@@ -79,7 +75,7 @@ const CompanyList = (props) => {
                   <TableCell style={{ width: '50%' }}>
                     <UpdateCompany company={company} updateFieldChanged={props.updateFieldChanged} />
                     <DeleteCustomer company={company} removeHandler={props.removeHandler} />
-                    </TableCell>
+                  </TableCell>
                 </TableRow>
               </Fragment>
             ))}

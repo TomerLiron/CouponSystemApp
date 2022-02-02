@@ -31,6 +31,7 @@ const AdminHome = (props) => {
         <GetOneCompany/>
         <AddCompany />
       </ButtonGroup>
+      
     </Box>
   );
 };

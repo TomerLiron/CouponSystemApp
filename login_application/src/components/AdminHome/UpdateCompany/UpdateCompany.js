@@ -1,9 +1,9 @@
 import Company from './Company';
 import { useState } from 'react';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-
-const AddCompany = (props) => {
+const UpdateCompany = (props) => {
     const [isEditing, setIsEditing] = useState(false);
 
     const saveExpenseDataHandler = (enteredExpenseData) => {
@@ -12,26 +12,23 @@ const AddCompany = (props) => {
     };
 
     const startEditingHandler = () => {
-        console.log('2')
         setIsEditing(true);
     };
     const stopEditingHandler = () => {
-        console.log('3');
-
         setIsEditing(false);
     };
     return (
-        <div >
+        <Box sx={{ }}>
             {!isEditing && (
-                <Button onClick={startEditingHandler}>AddCoupon</Button>
+                <Button fullWidth={false} variant="outlined" size="small" onClick={startEditingHandler}>Update Company</Button>
             )}
-            {isEditing && (<Company
-                    onSaveExpenseData={saveExpenseDataHandler}
-                    onCancel={stopEditingHandler}
-                />
-               
+            {isEditing && (<Company oldCompany={props.company} updateFieldChanged={props.updateFieldChanged}
+                onSaveExpenseData={saveExpenseDataHandler}
+                onCancel={stopEditingHandler}
+            />
+
             )}
-        </div>
+        </Box>
     );
 };
-export default AddCompany;
+export default UpdateCompany;

@@ -1,9 +1,7 @@
 import CouponGeter from './CompanyGeter';
-// import './GetCoupon.css';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-// import { spacing } from '@mui/system';
 
 const GetCoupon = (props) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -30,7 +28,6 @@ const GetCoupon = (props) => {
                     borderRadius: 2,
                     // p: 2,
                     mt:"margin-top",
-                    
 
                 }}><CouponGeter
                         onSaveExpenseData={saveExpenseDataHandler}
