@@ -1,4 +1,4 @@
-import CompanyGeter from './CompanyGeter'
+import CompanyGeter from './CustomerGeter'
 import { useState,useRef } from 'react';
 import Button from '@mui/material/Button';
 
@@ -31,19 +31,12 @@ const GetOneCompany = (props) => {
             )}
             {!isEditing && (
                 <form >
-{/* //onSubmit={formik.handleSubmit} */}
                     <TextField
                     inputRef={idRef}
-                        // error={Boolean(formik.touched.id && formik.errors.id)}
-                        // fullWidth
-                        // helperText={formik.touched.id && formik.errors.id}
                         label="Id"
                         margin="normal"
                         name="id"
-                        // onBlur={formik.handleBlur}
-                        // onChange={formik.handleChange}
                         type="number"
-                        // value={formik.values.id}
                         variant="outlined"
                     />;
                 </form>
@@ -52,7 +45,6 @@ const GetOneCompany = (props) => {
                 m: 1,
                 boxShadow: 5,
                 borderRadius: 2,
-                // p: 2,
                 mt: "margin-top",
 
 

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import UpdateCompany from './UpdateCompany/UpdateCompany'
-import DeleteCustomer from './DeleteCompany/DeleteCompany'
+import UpdateCustomer from './UpdateCustomer/UpdateCustomer'
+import DeleteCustomer from './DeleteCustomer/DeleteCustomer'
 
 import { Avatar, Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import { getInitials } from './get-initials';
@@ -14,21 +14,24 @@ const CompanyList = (props) => {
         }} size="small" aria-label="a dense table" >
           <TableHead >
             <TableRow >
-              <TableCell align='center'>
+              <TableCell align="center">
                 id
               </TableCell>
-              <TableCell align='left'>
-                Name
+              <TableCell align="left">
+                firstName
               </TableCell>
-              <TableCell align='center'>
+              <TableCell align="center">
+                lastName
+              </TableCell>
+              <TableCell align="center">
                 Email
               </TableCell>
-              <TableCell align='center'>
+              <TableCell align="center">
 
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody >
             {props.companys.map((company) => (
               <Fragment key={company.id}>
                 <TableRow
@@ -48,21 +51,24 @@ const CompanyList = (props) => {
                         src={company.avatarUrl}
                         sx={{ mr: 2 }}
                       >
-                        {getInitials(company.name)}
+                        {getInitials(company.firstName)}
                       </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {company.name}
+                        {company.firstName}
                       </Typography>
                     </Box>
+                  </TableCell>
+                  <TableCell align="center">
+                    {company.lastName}
                   </TableCell>
                   <TableCell align="center">
                     {company.email}
                   </TableCell>
                   <TableCell align="center">
-                    <UpdateCompany company={company} updateFieldChanged={props.updateFieldChanged} />
+                    <UpdateCustomer company={company} updateFieldChanged={props.updateFieldChanged} />
                     <DeleteCustomer company={company} removeHandler={props.removeHandler} />
                   </TableCell>
                 </TableRow>

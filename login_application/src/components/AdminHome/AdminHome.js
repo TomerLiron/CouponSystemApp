@@ -1,7 +1,10 @@
 import * as React from 'react';
 import GetCompany from './GetCompany/GetCompany';
+import GetCustomer from './GetCustomer/GetCustomer';
 import AddCompany from './AddCompany/AddCompany';
+import AddCustomer from './AddCustomer/AddCustomer';
 import GetOneCompany from './GetOneCompany/GetOneCompany';
+import GetOneCustomer from './GetOneCustomer/GetOneCustomer';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
 
@@ -30,6 +33,9 @@ const AdminHome = (props) => {
         <GetCompany />
         <GetOneCompany/>
         <AddCompany />
+        <GetCustomer/>
+        <AddCustomer/>
+        <GetOneCustomer/>
       </ButtonGroup>
       
     </Box>
