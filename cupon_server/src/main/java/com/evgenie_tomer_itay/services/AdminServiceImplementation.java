@@ -20,128 +20,98 @@ import java.util.List;
 @Service
 @Scope("prototype")
 public class AdminServiceImplementation extends ClientService implements AdminService {
-	@Autowired
-	private CompanyRepository companyRepository;
+    @Autowired
+    private CompanyRepository companyRepository;
 
-	@Autowired
-	private CustomerRepository customerRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
-	@Autowired
-	Validations validations;
-	private final String ADMIN_EMAIL = "admin@admin.com";
-	private final String ADMIN_PASSWORD = "admin";
+    @Autowired
+    Validations validations;
+    private final String ADMIN_EMAIL = "admin@admin.com";
+    private final String ADMIN_PASSWORD = "admin";
 
-	@Override
-	public void login(String email, String password) throws AdminNotExistsException {
+    @Override
+    public void login(String email, String password) throws AdminNotExistsException {
+        if ((email.equals(ADMIN_EMAIL)) && (password.equals(ADMIN_PASSWORD)))
+            return;
+        throw new AdminNotExistsException(
+                "Company with the given parameters (email: " + email + ", password: " + password + ") does not exist!");
+    }
 
-		if ((email.equals(ADMIN_EMAIL)) && (password.equals(ADMIN_PASSWORD)))
-			return;
+    @Override
+    public void addCompany(Company company) throws CompanyAlreadyExistsException {
+        validations.validateCompanyAdditionAllowed(company);
+        company.setPassword(company.getPassword());
+        System.out.println(company);
+        companyRepository.save(company);
 
-		throw new AdminNotExistsException(
-				"Company with the given parameters (email: " + email + ", password: " + password + ") does not exist!");
-	}
+    }
+    
+    @Override
+    public void updateCompany(Company newCompany) throws UpdateNotAllowedException, CompanyAlreadyExistsException, CompanyNotExistsException {
+        validations.validateUpdateAllowed(newCompany);
+        newCompany.setPassword(newCompany.getPassword());
+        companyRepository.save(newCompany);
+    }
 
-	@Override
-	public void addCompany(Company company) throws CompanyAlreadyExistsException {
+    @Override
+    public void deleteCompany(int id) throws CompanyNotExistsException {
+        validations.validateCompanyExists(id);
+        Company company = getOneCompany(id);
+        company.clearCoupons();
+        companyRepository.deleteById(id);
+    }
 
-		validations.validateCompanyAdditionAllowed(company);
+    @Override
+    public Company getOneCompany(int id) throws CompanyNotExistsException {
+        validations.validateCompanyExists(id);
+        return companyRepository.findById(id).get();
+    }
 
-		company.setPassword(company.getPassword());
+    @Override
+    public List<Company> getAllCompanies() {
+        return companyRepository.findAll();
+    }
 
-		companyRepository.save(company);
+    @Override
+    public void addCustomer(Customer customer) throws CustomerAlreadyExistsException {
+        validations.validateCustomerExists(customer.getEmail());
+        customer.setPassword(customer.getPassword());
+        customerRepository.save(customer);
+    }
 
-	}
+    @Override
+    public void updateCustomer(Customer newCustomer) throws CustomerAlreadyExistsException, customerNotExistsException {
+        validations.validateUpdateAllowed(newCustomer);
+        newCustomer.setPassword(newCustomer.getPassword());
+        customerRepository.save(newCustomer);
+    }
 
-	@Override
-	public void updateCompany(Company newCompany)
-			throws UpdateNotAllowedException, CompanyAlreadyExistsException, CompanyNotExistsException {
+    @Override
+    public void deleteCustomer(int id) throws customerNotExistsException {
+        validations.validateCustomerExists(id);
+        customerRepository.deleteById(id);
+    }
 
-		validations.validateUpdateAllowed(newCompany);
+    @Override
+    public Customer getOneCustomer(int id) throws customerNotExistsException {
+        validations.validateCustomerExists(id);
+        return customerRepository.findById(id).get();
+    }
 
-		newCompany.setPassword(newCompany.getPassword());
-		companyRepository.save(newCompany);
+    @Override
+    public List<Customer> getAllCustomers() {
+        return customerRepository.findAll();
+    }
 
-	}
+    @Override
+    public void setCompanyRepository(CompanyRepository companyRepository) {
+        this.companyRepository = companyRepository;
+    }
 
-	@Override
-	public void deleteCompany(int id) throws CompanyNotExistsException {
-
-		validations.validateCompanyExists(id);
-
-		Company company = getOneCompany(id);
-		company.clearCoupons();
-		companyRepository.deleteById(id);
-
-	}
-
-	@Override
-	public List<Company> getAllCompanies() {
-		return companyRepository.findAll();
-
-	}
-
-	@Override
-
-	public Company getOneCompany(int id) throws CompanyNotExistsException {
-
-		validations.validateCompanyExists(id);
-
-		return companyRepository.findById(id).get();
-
-	}
-
-	@Override
-	public void addCustomer(Customer customer) throws CustomerAlreadyExistsException {
-
-		validations.validateCustomerExists(customer.getEmail());
-
-		customer.setPassword(customer.getPassword());
-
-		customerRepository.save(customer);
-	}
-
-	@Override
-
-	public void updateCustomer(Customer newCustomer) throws CustomerAlreadyExistsException, customerNotExistsException {
-
-		validations.validateUpdateAllowed(newCustomer);
-
-		newCustomer.setPassword(newCustomer.getPassword());
-		customerRepository.save(newCustomer);
-
-	}
-
-	@Override
-
-	public void deleteCustomer(int id) throws customerNotExistsException {
-
-		validations.validateCustomerExists(id);
-
-		customerRepository.deleteById(id);
-	}
-
-	@Override
-	public Customer getOneCustomer(int id) throws customerNotExistsException {
-
-		validations.validateCustomerExists(id);
-
-		return customerRepository.getById(id);
-
-	}
-
-	@Override
-	public List<Customer> getAllCustomers() {
-
-		return customerRepository.findAll();
-	}
-
-	@Override
-	public void setCompanyRepository(CompanyRepository companyRepository) {
-		this.companyRepository = companyRepository;
-	}
-
-	@Override
-	public void setCustomerRepository(CustomerRepository customerRepository) {
-		this.customerRepository = customerRepository;
-	}
+    @Override
+    public void setCustomerRepository(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 }
