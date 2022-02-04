@@ -1,14 +1,22 @@
 # CouponSystemApp
 -----
+
+4/2/2022(Itay)
+-Updated Main Header
+-Updated company home
+-----
 3/2/2022 (Itay)
 -Updated Company home and added material ui components
+
+-----
 31/1/2022 (Itay)
 - Updated company controller and Company home
+- 
 -----
 29/1/2022 (Tomer)
 - Updated Login 
 - AdimnHome
------
+
 -----
 25/1/2021 (Evgenie)
 
