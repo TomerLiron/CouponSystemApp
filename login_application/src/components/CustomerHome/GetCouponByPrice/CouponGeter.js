@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { authActions } from '../../../store/auth';
 
-import classes from '../css/Home.module.css';
-import CouponList from './CouponList';
+import CouponList from '../CouponList';
 
 function CouponGeter(props) {
   const token = useSelector(state => state.auth.token);
@@ -22,7 +21,8 @@ function CouponGeter(props) {
       body: props.price,
     };
     try {
-      const response = await fetch("/customer/getCouponsByPrice/" , requestOptions);
+      console.log(props.price)
+      const response = await fetch("/customer/getCouponsByPrice/", requestOptions);
       if (!response.ok) {
         window.alert("Session timeout!");
         dispatch(authActions.logout());
@@ -44,39 +44,41 @@ function CouponGeter(props) {
           image: couponData.image,
         };
       });
-      setCoupons(transformedcoupons);
-    } catch (error) {
-      setError(error.message);
-    }
-    setIsLoading(false);
-  }, [dispatch, token,props.price]);
-
-  useEffect(() => {
-    fetchCouponsHandler();
-  }, [fetchCouponsHandler]);
-
-
-  let content = <p></p>;
-
-  if (coupos.length > 0) {
-    content = <CouponList coupos={coupos}  />;
+ 
+    console.log(props.price)
+    setCoupons(transformedcoupons);
+  } catch (error) {
+    setError(error.message);
   }
+  setIsLoading(false);
+}, [dispatch, token, props.price]);
 
-  if (error) {
-    content = <p>{error}</p>;
-  }
+useEffect(() => {
+  fetchCouponsHandler();
+}, [fetchCouponsHandler]);
 
-  if (isLoading) {
-    content = <p>Loading...</p>;
-  }
 
-  return (
-    <div className={classes.actions}>
-      <form onSubmit={fetchCouponsHandler}>
-        <section>{content}</section>
-      </form>
-    </div>
-  );
+let content = <p></p>;
+
+if (coupos.length > 0) {
+  content = <CouponList coupos={coupos} />;
+}
+
+if (error) {
+  content = <p>{error}</p>;
+}
+
+if (isLoading) {
+  content = <p>Loading...</p>;
+}
+
+return (
+  <div>
+    <form onSubmit={fetchCouponsHandler}>
+      <section>{content}</section>
+    </form>
+  </div>
+);
 };
 
 export default CouponGeter;

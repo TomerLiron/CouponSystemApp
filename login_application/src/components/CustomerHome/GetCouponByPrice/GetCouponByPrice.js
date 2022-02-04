@@ -1,45 +1,61 @@
 import CouponGeter from './CouponGeter';
-import './GetCoupon.css';
 import { useState, useRef } from 'react';
-import classes from "./CreateCoupon.module.css";
-import './Category.css'
+// import Button from '@mui/material/Button';
+import { Box, TextField,Button } from '@mui/material';
 
 const GetCouponByPrice = (props) => {
     const [isEditing, setIsEditing] = useState(false);
     const priceRef = useRef("");
-
-            //0000000000001
-
     const saveExpenseDataHandler = (enteredExpenseData) => {
         setIsEditing(false);
     };
 
     const startEditingHandler = () => {
+        // console.log(priceRef.current.value)
         setIsEditing(true);
     };
     const stopEditingHandler = () => {
         setIsEditing(false);
     };
     return (
-        <div className='new-expense'>
+        <div>
 
-            {!isEditing && (
-                <button onClick={startEditingHandler}>GetCoupon</button>
-            )}
-          {!isEditing && (
-                <div className={classes.control}>
+            {!isEditing && (<Box sx={{
+                m: 1,
+                boxShadow: 5,
+                borderRadius: 2,
+                mt: "margin-top",
+
+            }}>
+                <Button onClick={startEditingHandler}>GetCoupon</Button>
+                <form >
+                    <TextField
+                    inputRef={priceRef}
+                        label="price"
+                        margin="normal"
+                        name="price"
+                        type="number"
+                        variant="outlined"
+                    />;
+                </form>
+                {/* <div>
                     <label htmlFor="price">price</label>
                     <input type="number" step={0.01} id="price" ref={priceRef} />
-                </div>
-            )}
-
-            {isEditing && (<button onClick={stopEditingHandler}>Closed </button>
-            )}
-            {isEditing && (<CouponGeter price={priceRef.current.value}
+                </div> */}
+            </Box>)}
+            {isEditing && (<Box sx={{
+                m: 1,
+                boxShadow: 5,
+                borderRadius: 2,
+                mt: "margin-top",
+            }}>
+                <Button onClick={stopEditingHandler}>Closed </Button>
+                <CouponGeter price={priceRef.current.value}
                 onSaveExpenseData={saveExpenseDataHandler}
                 onCancel={stopEditingHandler}
             />
-            )}
+            </Box>)}
+           
         </div>
     );
 };
