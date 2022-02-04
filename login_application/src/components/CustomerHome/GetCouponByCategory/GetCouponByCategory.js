@@ -1,8 +1,8 @@
 import CouponGeter from './CouponGeter';
-import './GetCoupon.css';
 import { useState, useRef } from 'react';
-import classes from "./CreateCoupon.module.css";
-import './Category.css'
+
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 const GetCouponByCategory = (props) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -20,13 +20,17 @@ const GetCouponByCategory = (props) => {
         setIsEditing(false);
     };
     return (
-        <div className='new-expense'>
+        <div >
 
-            {!isEditing && (
-                <button onClick={startEditingHandler}>GetCoupon</button>
-            )}
-            {!isEditing && (
-                <div className={classes.control}>
+            {!isEditing && (<Box sx={{
+                m: 1,
+                boxShadow: 5,
+                borderRadius: 2,
+                // p: 2,
+                mt: "margin-top",
+
+            }}><Button onClick={startEditingHandler}>GetCoupon</Button>
+                <div >
                     <select className="expenses-filter__select" ref={categoryRef}>
                         <option value="FOOD">FOOD</option>
                         <option value="ELECTRICITY">ELECTRICITY</option>
@@ -37,14 +41,20 @@ const GetCouponByCategory = (props) => {
 
                     </select>
                 </div>
-            )}
-            {isEditing && (<button onClick={stopEditingHandler}>Closed </button>
-            )}
-            {isEditing && (<CouponGeter Category={categoryRef.current.value}
+            </Box>)}
+            {isEditing && (<Box sx={{
+                m: 1,
+                boxShadow: 5,
+                borderRadius: 2,
+                // p: 2,
+                mt: "margin-top",
+
+            }}><CouponGeter Category={categoryRef.current.value}
                 onSaveExpenseData={saveExpenseDataHandler}
                 onCancel={stopEditingHandler}
-            />
-            )}
+                />
+                <Button pb={5} size="small" onClick={stopEditingHandler}>Closed </Button>
+            </Box>)}
         </div>
     );
 };

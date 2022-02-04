@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { authActions } from '../../../store/auth';
 
-import classes from '../css/Home.module.css';
-import CouponList from './CouponList';
+import CouponList from '../CouponList';
 
 function CouponGeter(props) {
   const token = useSelector(state => state.auth.token);
@@ -49,7 +48,7 @@ function CouponGeter(props) {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [dispatch, token]);
+  }, [dispatch, token,props.Category]);
 
   useEffect(() => {
     fetchCouponsHandler();
@@ -71,7 +70,7 @@ function CouponGeter(props) {
   }
 
   return (
-    <div className={classes.actions}>
+    <div>
       <form onSubmit={fetchCouponsHandler}>
         <section>{content}</section>
       </form>
