@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import './Coupon.css';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import '../Add/AddCoupon.css'
+import { Button } from '@mui/material';
 const Coupon = (props) => {
     const token = useSelector(state => state.auth.token);
 
@@ -17,9 +18,7 @@ const Coupon = (props) => {
 
     const submitHandler = useCallback(async (event) => {
         event.preventDefault();
-        // could add validation here...
 
-        //id, String title, String details, String date
         let coupon = {
             category: categoryRef.current.value,
             title: titleRef.current.value,
@@ -32,24 +31,21 @@ const Coupon = (props) => {
 
         };
 
-        // POST request using fetch inside useEffect React hook
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json", token},
             body: JSON.stringify(coupon),
         };
         try {
-            console.log(coupon)
-
+            
             const response = await fetch("/company/addCoupon/", requestOptions);
             if (!response.ok) {
                 window.alert("Session timeout!");
                 // dispatch(loginActions.logout());
                 throw new Error("Something went wrong!");
             }
+            props.onAddCoupon(coupon)
 
-            console.log("Response Okay!");
-            console.log("coupon sent to server: " + coupon);
             
            
         } catch (error) {
@@ -58,22 +54,18 @@ const Coupon = (props) => {
         finally{
             props.onStopEditing()
         }
-        //setIsLoading(false);
     }, [props, token]);
         
 
     return (
-        <div className='new-expense'>
+        <div className='new__expense'>
         <form id="form" onSubmit={submitHandler}>
             <div className='new-expense__controls'>
                 <div className='new-expense__control'>
                     <label htmlFor="title">Title</label>
                     <input type="text" id="title" ref={titleRef} />
                 </div>
-                <div className='new-expense__control'>
-                    <label htmlFor="opening-text">Coupon description</label>
-                    <textarea rows="5" id="opening-text" ref={descriptionRef}></textarea>
-                </div>
+               
                 <div className='new-expense__control'>
                     <label htmlFor="amount">amount</label>
                     <input type="number" id="amount" ref={amountRef} />
@@ -93,6 +85,10 @@ const Coupon = (props) => {
                         <label htmlFor="image">image</label>
                         <input type="text" id="image" ref={imageRef} />
                     </div>
+                     <div className='new-expense__control'>
+                    <label htmlFor="opening-text">Coupon description</label>
+                    <textarea rows="5" id="opening-text" ref={descriptionRef}></textarea>
+                </div>
                 </div>
 
                 <div className="expenses-filter__control">
@@ -108,8 +104,8 @@ const Coupon = (props) => {
                 </div>
                 
                 <div className='new-expense__actions'>
-                    <button onClick={submitHandler} type='submit'>Add Coupon</button>
-                    <button onClick={()=>props.onStopEditing()}> Cancel </button>
+                    <Button style={{paddingLeft:'20px'}} onClick={submitHandler} type='submit'>Add Coupon</Button>
+                    <Button onClick={props.onStopEditing}> Cancel </Button>
                 </div>
                 
 

@@ -1,5 +1,5 @@
 import './DeleteCoupon.css';
-import { useState, useCallback, useContext } from 'react';
+import { useState, useCallback } from 'react';
 import { useSelector } from "react-redux";
 // import Button from '../../UI/Button/Button'
 import Button from '@mui/material/Button';
@@ -44,7 +44,7 @@ const DeleteCoupon = ({ couponId, onDelete }) => {
     return (
 
         <div>
-            <Button onClick={
+            <Button  onClick={
                 deleteCouponHandler
 
             }

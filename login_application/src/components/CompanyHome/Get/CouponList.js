@@ -1,6 +1,5 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import {
-  Avatar, Button,
   Box,
   Card,
   Table,
@@ -8,108 +7,80 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableContainer,
-  Typography
 } from '@mui/material';
-import DeleteCoupon from '../Delete/DeleteCoupon'
-import UpdateCouponSelector from '../update/UpdateCouponSelector';
-import UpdateCoupon from '../update/UpdateCoupon';
 
-import Paper from '@mui/material/Paper';
 import Coupon from './Coupon';
 
 const CouponList = (props) => {
-  const [edit, setEdit] = useState(false);
-  const [data, setData] = useState(props.coupon)
 
   return (
-    <Card >
+ 
+    <div >
+      <Card >
       <Box sx={{ minWidth: 1050 }}>
-        <Table sx={{
-          minWidth: 650, "& th": { fontSize: "1.25rem" }
-        }} size="small" aria-label="a dense table" >
-          <TableHead >
-            <TableRow >
-              <TableCell align='center'>
-                id
+      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table" >
+         
+       <TableHead>
+            <TableRow  >
+
+              <TableCell style={{ width: '5%' }} align='center'>
+                Id
               </TableCell>
-              <TableCell align='left'>
+
+              <TableCell style={{ width: '5%' }}align='center'>
                 Title
               </TableCell>
-              <TableCell align='center'>
+
+              <TableCell style={{ width: '5%' }}align='center'>
                 Category
               </TableCell>
-              <TableCell align='center'>
-                Description
-              </TableCell>
-              <TableCell align='center'>
-                Image
-              </TableCell>
-              <TableCell align='center'>
-                Amount
-              </TableCell>
-              <TableCell align='center'>
-                Start Date
-              </TableCell>
-              <TableCell align='center'>
-                End Date
-              </TableCell>
-              <TableCell align='center'>
-                Price
-              </TableCell>
-              <TableCell align='center'>
 
+              <TableCell style={{ width: '5%' }}align='center'>
+              Description
               </TableCell>
+
+              <TableCell style={{ width: '10%' }}align='center' >
+              Image
+              </TableCell>
+
+              <TableCell style={{ width: '5%' }}align='center'>
+              Amount
+              </TableCell>
+
+              <TableCell style={{ width: '5%' }}align='center'>
+              Start Date
+              </TableCell>
+              
+              <TableCell style={{ width: '5%' }}align='center'>
+              End Date
+              </TableCell>
+              
+              <TableCell style={{ width: '5%' }}align='center'>
+              Price
+              </TableCell>
+
+              <TableCell style={{ width: '5%' }}align='center'>
+    
+              </TableCell>
+             
             </TableRow>
           </TableHead>
-          <TableBody>
-            {props.coupons.map((coupon) => (
-              <Fragment key={coupon.id}>
-                <TableRow
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell align="center">
-                    {coupon.id}
-                  </TableCell>
-                  <TableCell align="center">
-                    {coupon.title}
-                  </TableCell>
-                   <TableCell align="center">
-                    {coupon.category}
-                  </TableCell>
-                  <TableCell align="center">
-                    {coupon.description}
-                  </TableCell> 
-                  <TableCell align="center">
-                    <Avatar
-                      src={coupon.image}
-                      sx={{ width: 100, height: 100 }}
-                    >
-                    </Avatar>
-                  </TableCell>
-                  <TableCell align="center">
-                    {coupon.amount}
-                  </TableCell>
-                  <TableCell align="center">
-                    {coupon.startDate}
-                  </TableCell>
-                  <TableCell align="center">
-                    {coupon.endDate}
-                  </TableCell>
-                  <TableCell align="center">
-                    {coupon.price}
-                  </TableCell>
-                  <TableCell align="center">
-                    <DeleteCoupon couponId={coupon.id} onDelete={(id) => props.onDelete(id)} />
-                    <UpdateCouponSelector coupon={coupon} updateFieldChanged={props.updateFieldChanged} />
-                  </TableCell>
-                </TableRow>
-              </Fragment>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </Card>
+         <TableBody>
+      {props.coupons.map((coupon) => 
+      
+        <Coupon
+          key={coupon.id}
+          coupon={coupon} 
+          onDelete={(id)=>props.onDelete(id)}/> 
+      
+       
+        )}
+        </TableBody>
+         </Table>
+          </Box>
+          </Card>
+       
+    </div>
   );
 };
 

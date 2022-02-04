@@ -10,6 +10,7 @@ import classes from '../Home.module.css';
 import CategorySorter from '../Sort/CategorySorter';
 import PriceSorter from '../Sort/PriceSorter'
 import Coupon from './Coupon';
+import AddCoupon from '../Add/AddCoupon';
 import CouponList from './CouponList';
 function GetCoupon() {
   const token = useSelector(state => state.auth.token);
@@ -19,15 +20,16 @@ function GetCoupon() {
   const [error, setError] = useState(null);
 
   const fetchCouponsHandler = useCallback(async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    setError(null);
 
     const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', token }
         };
-  
+        
+        
+    event.preventDefault();
+    setIsLoading(true);
+    setError(null);
   
     try {
       const response = await fetch("/company/allCoupons" ,requestOptions);
@@ -64,9 +66,9 @@ function GetCoupon() {
     setIsLoading(false);
   }, [token]);
 
-  // useEffect(() => {
-  //   fetchCouponsHandler();
-  // }, [fetchCouponsHandler]);
+  useEffect(() => {
+    fetchCouponsHandler();
+  }, [fetchCouponsHandler]);
 
 
   let content = <p></p>;
@@ -75,8 +77,9 @@ function GetCoupon() {
     content = (
       
      
-    <CouponList coupons={coupons} 
-    onDelete={(id)=>setCoupons(coupons=>coupons.filter((coupon)=>coupon.id!==id))} />
+    <CouponList coupons={coupons}
+    onDelete={(id)=>setCoupons(coupons=>coupons.filter((coupon)=>coupon.id!==id))} 
+    />
     
     )}
  
@@ -98,6 +101,9 @@ function GetCoupon() {
         </Button>
         <CategorySorter onSetCoupons={(data)=>setCoupons(data)}/>
          <PriceSorter onSetCoupons={(data)=>setCoupons(data)}/>
+         <AddCoupon onAddCoupon={coupon=>setCoupons(currentCoupons=>{return [...currentCoupons,coupon]})}/>
+
+
         <section>{content}</section>
       </form>
 

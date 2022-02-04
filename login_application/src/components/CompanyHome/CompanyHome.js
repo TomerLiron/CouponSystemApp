@@ -1,13 +1,8 @@
 import React from 'react';
-import Card from '../UI/Card/Card';
-import classes from './Home.module.css';
 import Box from '@mui/material/Box';
-
 import GetCoupon from './Get/GetCoupon';
-import AddCoupon from './Add/AddCoupon';
 import CompanyDetailsGetter from './GetDetails/CompanyDetailsGetter';
 import { ButtonGroup } from '@mui/material';
-
 const CompanyHome = () => {
   return (
       <Box
@@ -29,7 +24,6 @@ const CompanyHome = () => {
         variant="contained">
         <h1>Company Home</h1>
         <GetCoupon/>
-        <AddCoupon/>
         <CompanyDetailsGetter/>
         </ButtonGroup>
         </Box>
