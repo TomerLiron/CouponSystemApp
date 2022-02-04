@@ -21,6 +21,7 @@ const Navigation = () => {
             <ul>
                 {isAuth && (
                     <li>
+                        
                         <a href="/">Users</a>
                     </li>
                 )}
