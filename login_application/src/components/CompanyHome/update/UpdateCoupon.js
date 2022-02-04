@@ -1,143 +1,168 @@
-import React, { useCallback, useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux';
-import '../Add/Coupon.css'
-import '../Delete/DeleteCoupon.css';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from '../../../store/auth';
 
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import { Box, Button, TextField } from '@mui/material';
 
-export default function UpdateCoupon(props) {
-    const oldCoupon = props.defaultData
+const UpdateCoupon = (props) => {
+  const token = useSelector(state => state.auth.token);
+  const dispatch = useDispatch();
 
-    const token = useSelector(state => state.auth.token);
-    
-    const handleCouponChange=(coupon)=>{
-        props.onSetData({...oldCoupon,...coupon})
-    }
-
-    const handleChange=(changes)=>{
-       handleCouponChange({...props.defaultData, ...changes})
-      
-    }
-
-  
-
-    const submitHandler = useCallback(async (event) => {
-        event.preventDefault();
-       
-
-        let coupon={
-            id:oldCoupon.id,
-            company:oldCoupon.company,
-            category: categoryRef.current.value,
-            title: titleRef.current.value,
-            description: descriptionRef.current.value,
-            startDate: startDateRef.current.value,
-            endDate: endDateRef.current.value,
-            amount: amountRef.current.value,
-            price: priceRef.current.value,
-            image: imageRef.current.value,
-        }
-        console.log(coupon)
-       
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', token},
-            body: JSON.stringify(coupon)
-        }
-        try {
-            const response = await fetch('company/updateCoupon/', requestOptions)
-            if (!response.ok) {
-                throw new Error('Something went wrong!');
-            }
-            // props.onSetData(requestOptions.body)
-
-        } catch (error) {
-            console.log(error)
-        }
-        finally{
-            props.onUpdate()
-        }
-       
+  const formik = useFormik({
+    initialValues: {
+      title: '',
+      description: '',
+      email: '',
+      password: ''
     },
-        [props, token],
-    )
-    const defaultData ={
-     titleDefaultTxt :props.defaultData ==null ? "": props.defaultData.title,
-     descriptionDefaultTxt:props.defaultData ==null ? "": props.defaultData.description,
-     amountDefaultTxt:props.defaultData ==null ? "": props.defaultData.amount,
-     startDateDefaultTxt:props.defaultData ==null ? "": props.defaultData.startDate,
-     endDateDefaultTxt:props.defaultData ==null ? "": props.defaultData.endDate,
-     priceDefaultTxt:props.defaultData ==null ? "": props.defaultData.price,
-     imageDefaultTxt:props.defaultData ==null ? "": props.defaultData.image,
-     categoryDefaultTxt:props.defaultData ==null ? "": props.defaultData.category,
+    validationSchema: Yup.object({
+      title: Yup.string()
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required'),
+      description: Yup.string()
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required'),
+      email: Yup
+        .string()
+        .email(
+          'Must be a valid email')
+        .max(255)
+        .required(
+          'Email is required'),
+      password: Yup
+        .string()
+        .max(255)
+        .required(
+          'Password is required')
+    }),
+    onSubmit: () => {
+      submitHandler();
     }
-    const categoryRef = useRef("");
-    const titleRef = useRef("");
-    const descriptionRef = useRef("");
-    const amountRef = useRef("");
-    const startDateRef = useRef("");
-    const endDateRef = useRef("");
-    const priceRef = useRef("");
-    const imageRef = useRef("");
-    
+  });
 
+  const submitHandler = useCallback(async (event) => {
+    event.preventDefault();
+    console.log(formik.values.title)
+    const company = {
+      id: props.coupon.id,
+      company: props.coupon.id,
+      category: props.coupon.category,
+      title: props.coupon.title,
+      description: props.coupon.description,
+      amount: props.coupon.amount,
+      startDate: props.coupon.startDate,
+      endDate: props.coupon.endDate,
+      price: props.coupon.price,
+      image: props.coupon.image,
+    };
 
-    return (
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json", token: token },
+      body: JSON.stringify(company),
+    };
+    try {
+      // console.log("!2")
+      // const response = await fetch("/admin/updateCustomer/", requestOptions);
+      // if (!response.ok) {
+      //   window.alert("Session timeout!");
+      //   dispatch(authActions.logout());
+      //   throw new Error("Something went wrong!");
+      // }
 
-     
-        <div className='new-expense'>
-        <form id="form" onSubmit={submitHandler}>
-            <div className='new-expense__controls'>
-                <div className='new-expense__control'>
-                    <label htmlFor="title">Title</label>
-                    <input type="text" id="title" ref={titleRef} defaultValue={defaultData.titleDefaultTxt} onInput={e=> handleChange({title: e.target.value})} />
-                </div>
-                <div className='new-expense__control'>
-                    <label htmlFor="opening-text">Coupon description</label>
-                    <textarea rows="5" id="opening-text" ref={descriptionRef} defaultValue={defaultData.descriptionDefaultTxt} onInput={e=> handleChange({description: e.target.value})} ></textarea>
-                </div>
-                <div className='new-expense__control'>
-                    <label htmlFor="amount">amount</label>
-                    <input type="number" id="amount" ref={amountRef} defaultValue={defaultData.amountDefaultTxt} onInput={e=> handleChange({amount: e.target.value})} />
-                </div>
-                <div className='new-expense__control'>
-                    <label htmlFor="startDate">start Date</label>
-                    <input type="date" id="startDate" ref={startDateRef} defaultValue={defaultData.startDateDefaultTxt} onInput={e=> handleChange({startDate: e.target.value})} />
-                </div>
-                <div className='new-expense__control'>
-                    <label htmlFor="endDate">end Date</label>
-                    <input type="date" id="endDate" ref={endDateRef} defaultValue={defaultData.endDateDefaultTxt} onInput={e=> handleChange({endDate: e.target.value})}/>
-                    <div className='new-expense__control'>
-                        <label htmlFor="price">price</label>
-                        <input type="number" min='1' step='0.1' id="price" ref={priceRef} defaultValue={defaultData.priceDefaultTxt} onInput={e=> handleChange({price: e.target.value})}/>
-                    </div>
-                    <div className='new-expense__control'>
-                        <label htmlFor="image">image</label>
-                        <input type="text" id="image" ref={imageRef} defaultValue={defaultData.imageDefaultTxt} onInput={e=> handleChange({image: e.target.value})} />
-                    </div>
-                </div>
+      console.log("Response Okay!");
+      // if (response.status === 202) {
+      //   window.alert(await response.text())
+      // } else {
+      //   props.updateFieldChanged(company)
+      // }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [token, dispatch, props, formik.values]);
 
-                <div className="expenses-filter__control">
-                    <label className="expenses-filter__label">Category</label>
-                    <select className="expenses-filter__select" ref={categoryRef} defaultValue={defaultData.categoryDefaultTxt} onInput={e=> handleChange({category: e.target.value})}>
-                        <option value="FOOD">FOOD</option>
-                        <option value="ELECTRICITY">ELECTRICITY</option>
-                        <option value="RESTAURANT">RESTAURANT</option>
-                        <option value="VACATION">VACATION</option>
-                        <option value="FURNITURES">FURNITURES</option>
-                        <option value="HARDWARE">HARDWARE</option>
-                    </select>
-                </div>
-                
-                <div className='new-expense__actions'>
-                    <button onClick={submitHandler} type='submit'>Apply changes</button>
-                    <button onClick={()=>props.onUpdate()}>Cancel</button>
-                </div>
-                
+  return (
+    <Box
+      // component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <form onSubmit={formik.handleSubmit}>
 
-            </div>
+        <TextField
+          error={Boolean(formik.touched.title && formik.errors.title)}
+          helperText={formik.touched.title && formik.errors.title}
+          label="title"
+          name="title"
+          onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          value={formik.values.title}
+          id="outlined-error"
+        // defaultValue="Hello World"
+        />
+        {/* <TextField
+          error
+          id="outlined-error-helper-text"
+          label="Error"
+          defaultValue="Hello World"
+          helperText="Incorrect entry."
+        />
+      </div>
+      <div>
+        <TextField
+          error
+          id="filled-error"
+          label="Error"
+          defaultValue="Hello World"
+          variant="filled"
+        />
+        <TextField
+          error
+          id="filled-error-helper-text"
+          label="Error"
+          defaultValue="Hello World"
+          helperText="Incorrect entry."
+          variant="filled"
+        />
+      </div>
+      <div>
+        <TextField
+          error
+          id="standard-error"
+          label="Error"
+          defaultValue="Hello World"
+          variant="standard"
+        />
+        <TextField
+          error
+          id="standard-error-helper-text"
+          label="Error"
+          defaultValue="Hello World"
+          helperText="Incorrect entry."
+          variant="standard"
+        /> */}
+        <Button
+          color="primary"
+          disabled={formik.isSubmitting}
+          fullWidth
+          size="large"
+          type="submit"
+          variant="contained"
+        // onClick={formik.handleSubmit}
+        >
+          update
+        </Button>
+      </form>
+    </Box>
 
-        </form>
-        </div>
-
-    )
+  );
 }
+
+export default UpdateCoupon;

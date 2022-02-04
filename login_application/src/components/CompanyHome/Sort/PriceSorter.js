@@ -48,9 +48,6 @@ export default function PriceSorter(props) {
        
       }, [props, token]);
     
-      useEffect(() => {
-        handleSortedData();
-      }, [handleSortedData]);
 
       
 

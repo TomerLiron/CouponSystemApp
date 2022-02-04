@@ -48,10 +48,6 @@ export default function CategorySorter(props) {
 
     }, [props, token]);
 
-    useEffect(() => {
-        handleCategorySelect();
-    }, [handleCategorySelect]);
-
 
 
 

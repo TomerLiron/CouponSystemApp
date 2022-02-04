@@ -19,16 +19,15 @@ function GetCoupon() {
   const [error, setError] = useState(null);
 
   const fetchCouponsHandler = useCallback(async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
     const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', token }
         };
-        
-        
-    event.preventDefault();
-    setIsLoading(true);
-    setError(null);
+  
   
     try {
       const response = await fetch("/company/allCoupons" ,requestOptions);
@@ -65,9 +64,9 @@ function GetCoupon() {
     setIsLoading(false);
   }, [token]);
 
-  useEffect(() => {
-    fetchCouponsHandler();
-  }, [fetchCouponsHandler]);
+  // useEffect(() => {
+  //   fetchCouponsHandler();
+  // }, [fetchCouponsHandler]);
 
 
   let content = <p></p>;
@@ -76,7 +75,7 @@ function GetCoupon() {
     content = (
       
      
-    <CouponList coupons={coupons}
+    <CouponList coupons={coupons} 
     onDelete={(id)=>setCoupons(coupons=>coupons.filter((coupon)=>coupon.id!==id))} />
     
     )}
