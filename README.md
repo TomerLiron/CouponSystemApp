@@ -10,8 +10,7 @@
 
 -----
 31/1/2022 (Itay)
-- Updated company controller and Company home
-- 
+ Updated company controller and Company home
 -----
 29/1/2022 (Tomer)
 - Updated Login 
