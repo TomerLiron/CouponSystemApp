@@ -1,7 +1,7 @@
-import './PurchaseCoupon.css';
 import { useRef, useState } from 'react';
 import Purchase from './Purchase';
-import classes from "./CreateCoupon.module.css";
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 const PurchaseCoupon = (props) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -9,7 +9,7 @@ const PurchaseCoupon = (props) => {
 
     const startEditingHandler = () => {
         console.log(idRef.current.value)
-        
+
         setIsEditing(true);
     };
 
@@ -18,20 +18,30 @@ const PurchaseCoupon = (props) => {
         setIsEditing(false);
     };
     return (
-        <div className='new-expense'>
+        <div >
 
-            {!isEditing && (
-                <button onClick={startEditingHandler}>Purchase</button>
-            )}
-            {!isEditing && (
-                <div className={classes.control}>
+            {!isEditing && (<Box sx={{
+                m: 1,
+                boxShadow: 5,
+                borderRadius: 2,
+                mt: "margin-top",
+            }}>
+                <Button onClick={startEditingHandler}>Purchase</Button>
+                <div>
                     <label htmlFor="id">id</label>
                     <input type="number" id="id" ref={idRef} />
                 </div>
-            )}
-            {isEditing && (<Purchase stopEditing={stopEditingHandler} id={idRef.current.value}
-            />
-            )}
+            </Box>)}
+
+            {isEditing && (<Box sx={{
+                m: 1,
+                boxShadow: 5,
+                borderRadius: 2,
+                mt: "margin-top",
+            }}>
+                <Purchase stopEditing={stopEditingHandler} id={idRef.current.value}
+                />
+            </Box>)}
 
         </div>
 

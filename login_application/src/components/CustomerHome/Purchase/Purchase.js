@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector,useDispatch } from "react-redux";
 
-import classes from '../css/Home.module.css';
 import { authActions } from '../../../store/auth';
 
 function Purchase(props) {
@@ -37,7 +36,7 @@ function Purchase(props) {
     }
     setIsLoading(false);
     props.stopEditing();
-  }, [token, props.id]);
+  }, [token, props,dispatch]);
 
   useEffect(() => {
     submitHandler();
@@ -54,7 +53,7 @@ function Purchase(props) {
   }
 
   return (
-    <div className={classes.actions}>
+    <div>
       <form onSubmit={submitHandler}>
         <section>{content}</section>
       </form>
