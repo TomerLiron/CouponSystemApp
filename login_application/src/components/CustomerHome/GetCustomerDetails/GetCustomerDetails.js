@@ -1,6 +1,7 @@
 import CouponGeter from './DetailsGeter';
-import './GetCoupon.css';
 import { useState } from 'react';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 const GetCustomerDetails = (props) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -16,18 +17,23 @@ const GetCustomerDetails = (props) => {
         setIsEditing(false);
     };
     return (
-        <div className='new-expense'>
+        <div>
 
             {!isEditing && (
-                <button onClick={startEditingHandler}>GetCoupon</button>
+                <Button onClick={startEditingHandler}>GetCoupon</Button>
             )}
-            {isEditing && (<button onClick={stopEditingHandler}>Closed </button>
-            )}
-            {isEditing && (<CouponGeter
+            {isEditing && (<Box sx={{
+                m: 1,
+                boxShadow: 5,
+                borderRadius: 2,
+                mt: "margin-top",
+
+            }}><Button onClick={stopEditingHandler}>Closed </Button>
+            <CouponGeter
                 onSaveExpenseData={saveExpenseDataHandler}
                 onCancel={stopEditingHandler}
             />
-            )}
+            </Box>)}
         </div>
     );
 };

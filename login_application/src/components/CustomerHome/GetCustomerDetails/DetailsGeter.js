@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { authActions } from '../../../store/auth';
 
-import classes from '../css/Home.module.css';
-import CouponList from './CouponList';
+import CustomerList from '../CustomerList';
 
 function DetailsGeter() {
   const token = useSelector(state => state.auth.token);
@@ -44,7 +43,7 @@ function DetailsGeter() {
   let content = <p></p>;
 
   if (coupos !==undefined) {
-    content = <CouponList customer={coupos} />;
+    content = <CustomerList customer={coupos} />;
   }
 
   if (error) {
@@ -56,7 +55,7 @@ function DetailsGeter() {
   }
 
   return (
-    <div className={classes.actions}>
+    <div>
       <form onSubmit={fetchCouponsHandler}>
         <section>{content}</section>
       </form>
