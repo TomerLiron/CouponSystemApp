@@ -18,9 +18,9 @@ function GetCoupon() {
   const [coupons, setCoupons] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
 
   const fetchCouponsHandler = useCallback(async (event) => {
-
     const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', token }
@@ -35,7 +35,7 @@ function GetCoupon() {
       const response = await fetch("/company/allCoupons" ,requestOptions);
       if (!response.ok) {
         window.alert("Session timeout!");
-        //dispatch(authActions.logout());
+        dispatch(authActions.logout());
         throw new Error("Something went wrong!");
       }
 
@@ -64,7 +64,7 @@ function GetCoupon() {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [token]);
+  }, [dispatch, token]);
 
   useEffect(() => {
     fetchCouponsHandler();

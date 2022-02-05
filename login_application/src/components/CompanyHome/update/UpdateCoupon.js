@@ -1,11 +1,13 @@
 import { Button } from '@mui/material';
 import React, { useCallback, useRef } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import '../Add/Coupon.css'
 import '../Delete/DeleteCoupon.css';
+import { authActions } from '../../../store/auth';
 
 
 export default function UpdateCoupon(props) {
+    const dispatch = useDispatch();
     const oldCoupon = props.defaultData
 
     const token = useSelector(state => state.auth.token);
@@ -47,18 +49,22 @@ export default function UpdateCoupon(props) {
         try {
             const response = await fetch('company/updateCoupon/', requestOptions)
             if (!response.ok) {
+                window.alert("Session timeout!");
+                dispatch(authActions.logout);
                 throw new Error('Something went wrong!');
             }
+            if (response.status === 202) 
+            window.alert(await response.text())
 
         } catch (error) {
-            console.log(error)
+            console.log(error.message)
         }
         finally{
             props.onUpdate()
         }
        
     },
-        [oldCoupon.company, oldCoupon.id, props, token],
+        [dispatch, oldCoupon.company, oldCoupon.id, props, token],
     )
     const defaultData ={
      titleDefaultTxt :props.defaultData ==null ? "": props.defaultData.title,

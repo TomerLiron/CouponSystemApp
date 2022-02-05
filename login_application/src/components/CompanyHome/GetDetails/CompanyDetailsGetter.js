@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
-
+import { authActions } from '../../../store/auth';
 import Details from './Details';
 
 export default function CompanyDetailsGetter() {
@@ -9,6 +9,7 @@ export default function CompanyDetailsGetter() {
   const [error, setError] = useState(null)
   const [details, setDetails] = useState("")
   const [showDetails, setShowDetails] = useState(false)
+  const dispatch = useDispatch();
   
   const handleDetails = useCallback(async () => {
     const requestOptions = {
@@ -20,26 +21,17 @@ export default function CompanyDetailsGetter() {
       const response = await fetch("/company/getDetails", requestOptions);
       if (!response.ok) {
         window.alert("Session timeout!");
-        //dispatch(authActions.logout());
+        dispatch(authActions.logout());
         throw new Error("Something went wrong!");
       }
-
-      console.log("Response Okay!");
       const data = await response.json();
-      console.log(data)
-
       setDetails(data)
-      console.log(details)
       setShowDetails(true)
 
-     
-
     } catch (error) {
-      setError(error.message);
+      console.log(error.message)
     }
-
-
-  }, [details, token]);
+  }, [dispatch, token]);
 
     
 

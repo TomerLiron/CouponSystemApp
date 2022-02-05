@@ -3,8 +3,10 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import Button from '@mui/material/Button';
 
 import '../Add/Category.css'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { authActions } from '../../../store/auth';
 export default function CategorySorter(props) {
+    const dispatch = useDispatch();
     const token = useSelector(state => state.auth.token)
     const categoryRef = useRef("")
     const handleCategorySelect = useCallback(async (event) => {
@@ -20,9 +22,10 @@ export default function CategorySorter(props) {
             const response = await fetch("/company/getByCategory?category="+selectedCategory , requestOptions);
             if (!response.ok) {
                 window.alert("Session timeout!");
+                dispatch(authActions.logout)
+                throw new Error("Something went wrong!")
             }
 
-            console.log("Response Okay!");
             const data = await response.json();
            
 
@@ -46,14 +49,11 @@ export default function CategorySorter(props) {
             console.log(error)
         }
 
-    }, [props, token]);
+    }, [dispatch, props, token]);
 
     useEffect(() => {
         handleCategorySelect();
     }, [handleCategorySelect]);
-
-
-
 
     const [showTextBox, setShowTextBox] = useState(false)
     let content;

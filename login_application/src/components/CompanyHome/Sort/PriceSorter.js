@@ -1,8 +1,9 @@
 import React, { useState,useCallback,useEffect, useRef } from 'react';
-import { useSelector} from 'react-redux';
-// import Button from '../../UI/Button/Button';
+import { useDispatch, useSelector} from 'react-redux';
 import Button from '@mui/material/Button';
+import { authActions } from '../../../store/auth';
 export default function PriceSorter(props) {
+  const dispatch = useDispatch()
     const token = useSelector(state => state.auth.token);
     const [showTextBox, setShowTextBox] = useState(false)
     const priceRef = useRef("")
@@ -19,12 +20,11 @@ export default function PriceSorter(props) {
           const response = await fetch("/company/getByPrice?price="+priceInput ,requestOptions);
           if (!response.ok) {
             window.alert("Session timeout!");
-            //dispatch(authActions.logout());
+            dispatch(authActions.logout());
+            throw new Error("Something went wrong!");
           }
     
-          console.log("Response Okay!");
           const data = await response.json();
-          console.log("Shit"+data)
          
           const transformedData = data.map((couponData) => {
             return {
@@ -46,7 +46,7 @@ export default function PriceSorter(props) {
           console.log(error)
         }
        
-      }, [props, token]);
+      }, [dispatch, props, token]);
     
       useEffect(() => {
         handleSortedData();

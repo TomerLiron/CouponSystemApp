@@ -1,11 +1,13 @@
 import { useCallback, useRef } from 'react';
 import './Coupon.css';
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import '../Add/AddCoupon.css'
 import { Button } from '@mui/material';
+import {authActions} from '../../../store/auth'
 const Coupon = (props) => {
     const token = useSelector(state => state.auth.token);
-
+    const dispatch = useDispatch();
+    
     const categoryRef = useRef("");
     const titleRef = useRef("");
     const descriptionRef = useRef("");
@@ -14,10 +16,13 @@ const Coupon = (props) => {
     const endDateRef = useRef("")
     const priceRef = useRef("");
     const imageRef = useRef("");
+    
 
 
     const submitHandler = useCallback(async (event) => {
         event.preventDefault();
+        
+        
 
         let coupon = {
             category: categoryRef.current.value,
@@ -41,20 +46,23 @@ const Coupon = (props) => {
             const response = await fetch("/company/addCoupon/", requestOptions);
             if (!response.ok) {
                 window.alert("Session timeout!");
-                // dispatch(loginActions.logout());
+                dispatch(authActions.logout());
                 throw new Error("Something went wrong!");
             }
+            if (response.status === 202) 
+                window.alert(await response.text())
+
             props.onAddCoupon(coupon)
 
             
            
         } catch (error) {
-            window.alert(error)
+          console.log(error.message);
         }
         finally{
             props.onStopEditing()
         }
-    }, [props, token]);
+    }, [dispatch, props, token]);
         
 
     return (
@@ -63,31 +71,31 @@ const Coupon = (props) => {
             <div className='new-expense__controls'>
                 <div className='new-expense__control'>
                     <label htmlFor="title">Title</label>
-                    <input type="text" id="title" ref={titleRef} />
+                    <input type="text" id="title" ref={titleRef} required={true} />
                 </div>
                
                 <div className='new-expense__control'>
                     <label htmlFor="amount">amount</label>
-                    <input type="number" id="amount" ref={amountRef} />
+                    <input type="number" id="amount" ref={amountRef} required={true} />
                 </div>
                 <div className='new-expense__control'>
                     <label htmlFor="startDate">start Date</label>
-                    <input type="date" id="startDate" ref={startDateRef} />
+                    <input type="date" id="startDate" ref={startDateRef} required={true} />
                 </div>
                 <div className='new-expense__control'>
                     <label htmlFor="endDate">end Date</label>
-                    <input type="date" id="endDate" ref={endDateRef} />
+                    <input type="date" id="endDate" ref={endDateRef} required={true}  />
                     <div className='new-expense__control'>
                         <label htmlFor="price">price</label>
-                        <input type="number" min='1' step='0.1' id="price" ref={priceRef} />
+                        <input type="number" min='1' step='0.1' id="price" ref={priceRef} required={true} />
                     </div>
                     <div className='new-expense__control'>
                         <label htmlFor="image">image</label>
-                        <input type="text" id="image" ref={imageRef} />
+                        <input type="text" id="image" ref={imageRef} required={true}/>
                     </div>
                      <div className='new-expense__control'>
                     <label htmlFor="opening-text">Coupon description</label>
-                    <textarea rows="5" id="opening-text" ref={descriptionRef}></textarea>
+                    <textarea rows="5" id="opening-text" ref={descriptionRef} required={true}></textarea>
                 </div>
                 </div>
 
