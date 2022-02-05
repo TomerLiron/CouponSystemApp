@@ -22,7 +22,6 @@ const CompanyHome = () => {
         orientation="vertical"
         aria-label="vertical outlined button group"
         variant="contained">
-        <h1>Company Home</h1>
         <GetCoupon/>
         <CompanyDetailsGetter/>
         </ButtonGroup>
