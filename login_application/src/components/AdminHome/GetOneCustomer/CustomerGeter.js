@@ -6,10 +6,10 @@ import { authActions } from '../../../store/auth';
 import CustomerList from '../CustomerList';
 import { Box, Container } from '@mui/material';
 
-const CompanyGeter = (props) => {
+const CustomerGeter = (props) => {
   const token = useSelector(state => state.auth.token);
   const dispatch = useDispatch();
-  const [companys, setCompanys] = useState([]);
+  const [companys, setCustomers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -23,18 +23,18 @@ const CompanyGeter = (props) => {
         return item;
       }
     });
-    setCompanys(newArr);
+    setCustomers(newArr);
     setIsLoading(false);
   };
 
   const removeHandler = (id) => {
     setIsLoading(true);
     const newList = companys.filter((item) => item.id !== id);
-    setCompanys(newList);
+    setCustomers(newList);
     setIsLoading(false);
   };
 
-  const fetchCompanysHandler = useCallback(async () => {
+  const fetchCustomersHandler = useCallback(async () => {
     console.log("hi")
     setIsLoading(true);
     setError(null);
@@ -64,17 +64,17 @@ const CompanyGeter = (props) => {
           email: companieData.email,
         };
       });
-      setCompanys(transformedcoupons);
+      setCustomers(transformedcoupons);
     }
     } catch (error) {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [dispatch, token,props.id]);
+  }, [dispatch, token,props]);
 
   useEffect(() => {
-    fetchCompanysHandler();
-  }, [fetchCompanysHandler]);
+    fetchCustomersHandler();
+  }, [fetchCustomersHandler]);
 
 
   let content = <p></p>;
@@ -111,4 +111,4 @@ const CompanyGeter = (props) => {
   );
 };
 
-export default CompanyGeter;
+export default CustomerGeter;

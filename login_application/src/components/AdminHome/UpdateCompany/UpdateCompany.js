@@ -22,7 +22,7 @@ const UpdateCompany = (props) => {
             {!isEditing && (
                 <Button fullWidth={false} variant="outlined" size="small" onClick={startEditingHandler}>Update Company</Button>
             )}
-            {isEditing && (<Company oldCompany={props.company} updateFieldChanged={props.updateFieldChanged}
+            {isEditing && (<Company oldCompany={props.company} updateFieldChanged={props.updateFieldChanged} stopEditingHandler={stopEditingHandler}
                 onSaveExpenseData={saveExpenseDataHandler}
                 onCancel={stopEditingHandler}
             />

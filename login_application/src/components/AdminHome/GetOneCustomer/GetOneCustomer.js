@@ -1,4 +1,4 @@
-import CompanyGeter from './CustomerGeter'
+import CustomerGeter from './CustomerGeter'
 import { useState, useRef } from 'react';
 import Button from '@mui/material/Button';
 
@@ -56,7 +56,7 @@ const GetOneCustomer = (props) => {
 
 
             }}>
-                <CompanyGeter id={idRef.current.value} stopEditingHandler={stopEditingHandler}
+                <CustomerGeter id={idRef.current.value} stopEditingHandler={stopEditingHandler}
                     onSaveExpenseData={saveExpenseDataHandler}
                     onCancel={stopEditingHandler}
                 />

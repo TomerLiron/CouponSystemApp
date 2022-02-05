@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import UpdateCompany from './UpdateCompany/UpdateCompany'
-import DeleteCustomer from './DeleteCompany/DeleteCompany'
+import DeleteCompany from './DeleteCompany/DeleteCompany'
 
 import { Avatar, Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import { getInitials } from '../utils/get-initials';
@@ -75,7 +75,7 @@ const CompanyList = (props) => {
                   </TableCell>
                   <TableCell align="center">
                     <UpdateCompany company={company} updateFieldChanged={props.updateFieldChanged} />
-                    <DeleteCustomer company={company} removeHandler={props.removeHandler} />
+                    <DeleteCompany company={company} removeHandler={props.removeHandler} />
                   </TableCell>
                 </TableRow>
               </Fragment>

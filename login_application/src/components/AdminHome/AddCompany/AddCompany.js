@@ -25,7 +25,7 @@ const AddCompany = (props) => {
             {!isEditing && (
                 <Button onClick={startEditingHandler}>Add Company</Button>
             )}
-            {isEditing && (<Company
+            {isEditing && (<Company stopEditingHandler={stopEditingHandler}
                     onSaveExpenseData={saveExpenseDataHandler}
                     onCancel={stopEditingHandler}
                 />

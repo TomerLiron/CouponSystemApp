@@ -32,21 +32,21 @@ const Customer = (props) => {
             const response = await fetch("/admin/addCustomer/", requestOptions);
             if (!response.ok) {
                 window.alert("Session timeout!");
-                // dispatch(authActions.logout());
+                dispatch(authActions.logout());
                 throw new Error("Something went wrong!");
-            }
-
-            console.log("Response Okay!");
-            const id = await response.text();
-            const CustomerWithId = { "id": id, ...company };
-            props.onAddCustomer(CustomerWithId);
-            if (response.status === 202) {
+            } else if (response.status === 202) {
                 window.alert(await response.text())
+                props.stopEditingHandler();
+            }else{
+                console.log("Response Okay!");
+                const id = await response.text();
+                const CustomerWithId = { "id": id, ...company };
+                props.onAddCustomer(CustomerWithId);    
+                props.stopEditingHandler();
             }
         } catch (error) {
             console.log(error.message);
         }
-        //setIsLoading(false);
     }, [props, token, dispatch]);
     const categoryValue = (value) => { return value }
 

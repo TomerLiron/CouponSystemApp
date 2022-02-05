@@ -6,16 +6,26 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Box, Button, TextField } from '@mui/material';
 
-const Company = (props) => {
+const Customer = (props) => {
   const token = useSelector(state => state.auth.token);
   const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
+      firstName: '',
+      lastName: '',
       email: '',
       password: ''
     },
     validationSchema: Yup.object({
+      firstName: Yup.string()
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required'),
+      lastName: Yup.string()
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required'),
       email: Yup
         .string()
         .email(
@@ -34,12 +44,14 @@ const Company = (props) => {
     }
   });
 
-  const submitHandler = useCallback(async () => {
+  const submitHandler = useCallback(async (event) => {
+    event.preventDefault();
 
     const company = {
-      // id: JSON.stringify(props.oldCompany.id),
-      id: props.oldCompany.id,
-      name: props.oldCompany.name,
+      // id: JSON.stringify(props.oldCustomer.id),
+      id: props.oldCustomer.id,
+      firstName: formik.values.firstName,
+      lastName: formik.values.lastName,
       email: formik.values.email,
       password: formik.values.password,
     };
@@ -50,7 +62,8 @@ const Company = (props) => {
       body: JSON.stringify(company),
     };
     try {
-      const response = await fetch("/admin/updateCompany/", requestOptions);
+      console.log("!2")
+      const response = await fetch("/admin/updateCustomer/", requestOptions);
       if (!response.ok) {
         window.alert("Session timeout!");
         dispatch(authActions.logout());
@@ -58,14 +71,14 @@ const Company = (props) => {
       }else if (response.status === 202) {
         window.alert(await response.text())
         props.stopEditingHandler();
-      } else {
+      } else{
         console.log("Response Okay!");
         props.updateFieldChanged(company)
       }
     } catch (error) {
       console.log(error.message);
     }
-  }, [token,dispatch,props,formik.values]);
+  }, [token, dispatch, props, formik.values]);
 
   return (
     <>
@@ -87,6 +100,28 @@ const Company = (props) => {
         }}
       >
         <form onSubmit={formik.handleSubmit}>
+          <TextField
+            error={Boolean(formik.touched.firstName && formik.errors.firstName)}
+            helperText={formik.touched.firstName && formik.errors.firstName}
+            label="first Name"
+            margin="normal"
+            name="firstName"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.firstName}
+            variant="outlined"
+          />
+          <TextField
+            error={Boolean(formik.touched.lastName && formik.errors.lastName)}
+            helperText={formik.touched.lastName && formik.errors.lastName}
+            label="last Name"
+            margin="normal"
+            name="lastName"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.lastName}
+            variant="outlined"
+          />
           <TextField
             error={Boolean(formik.touched.email && formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
@@ -128,4 +163,4 @@ const Company = (props) => {
   );
 }
 
-export default Company;
+export default Customer;

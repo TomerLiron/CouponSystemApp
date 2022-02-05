@@ -60,7 +60,7 @@ const CompanyGeter = (props) => {
             email: companieData.email,
           };
         });
-        setCompanys(transformedcoupons);
+        setCompanys(transformedcoupons,props);
       }
 
 
@@ -68,7 +68,7 @@ const CompanyGeter = (props) => {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [dispatch, token,props.id]);
+  }, [dispatch, token,props]);
 
   useEffect(() => {
     fetchCompanysHandler();

@@ -6,7 +6,7 @@ import { authActions } from '../../../store/auth';
 import CustomerList from '../CustomerList';
 import { Box, Container } from '@mui/material';
 
-function CustomerGeter() {
+function CustomerGeter(props) {
   const token = useSelector(state => state.auth.token);
   const dispatch = useDispatch();
   const [companys, setCustomers] = useState([]);

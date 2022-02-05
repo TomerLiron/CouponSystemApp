@@ -12,12 +12,9 @@ const AddCustomer = (props) => {
     };
 
     const startEditingHandler = () => {
-        console.log('2')
         setIsEditing(true);
     };
     const stopEditingHandler = () => {
-        console.log('3');
-
         setIsEditing(false);
     };
     return (
@@ -25,7 +22,7 @@ const AddCustomer = (props) => {
             {!isEditing && (
                 <Button onClick={startEditingHandler}>Add Customer</Button>
             )}
-            {isEditing && (<Customer
+            {isEditing && (<Customer stopEditingHandler={stopEditingHandler}
                     onSaveExpenseData={saveExpenseDataHandler}
                     onCancel={stopEditingHandler}
                 />

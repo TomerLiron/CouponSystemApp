@@ -5,7 +5,7 @@ import { authActions } from '../../../store/auth';
 
 import { Box, Button } from '@mui/material';
 
-const DeleteCompany = (props) => {
+const DeleteCustomer = (props) => {
   const token = useSelector(state => state.auth.token);
   const dispatch = useDispatch();
   const submitHandler = useCallback(async () => {
@@ -35,8 +35,8 @@ const DeleteCompany = (props) => {
   }, [props, token, dispatch]);
   return (
     <Box sx={{}}>
-      <Button fullWidth={false} variant="outlined" size="small" onClick={submitHandler}>Delete Company</Button>
+      <Button fullWidth={false} variant="outlined" size="small" onClick={submitHandler}>Delete Customer</Button>
     </Box>
   );
 };
-export default DeleteCompany;
+export default DeleteCustomer;

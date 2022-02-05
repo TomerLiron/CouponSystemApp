@@ -1,9 +1,9 @@
-import Company from './Company';
+import Customer from './Customer';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-const UpdateCompany = (props) => {
+const UpdateCustomer = (props) => {
     const [isEditing, setIsEditing] = useState(false);
 
     const saveExpenseDataHandler = (enteredExpenseData) => {
@@ -20,9 +20,9 @@ const UpdateCompany = (props) => {
     return (
         <Box sx={{ }}>
             {!isEditing && (
-                <Button fullWidth={false} variant="outlined" size="small" onClick={startEditingHandler}>Update Company</Button>
+                <Button fullWidth={false} variant="outlined" size="small" onClick={startEditingHandler}>Update Customer</Button>
             )}
-            {isEditing && (<Company oldCompany={props.company} updateFieldChanged={props.updateFieldChanged}
+            {isEditing && (<Customer oldCustomer={props.company} updateFieldChanged={props.updateFieldChanged} stopEditingHandler={stopEditingHandler}
                 onSaveExpenseData={saveExpenseDataHandler}
                 onCancel={stopEditingHandler}
             />
@@ -31,4 +31,4 @@ const UpdateCompany = (props) => {
         </Box>
     );
 };
-export default UpdateCompany;
+export default UpdateCustomer;

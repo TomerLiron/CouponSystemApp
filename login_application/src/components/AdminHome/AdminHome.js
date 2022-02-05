@@ -7,10 +7,8 @@ import GetOneCompany from './GetOneCompany/GetOneCompany';
 import GetOneCustomer from './GetOneCustomer/GetOneCustomer';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
-import { useState,useRef } from 'react';
 
-const AdminHome = (props) => {
-  const idRef = useRef("");
+const AdminHome = () => {
 
   return (
     <Box
