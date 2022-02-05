@@ -26,7 +26,7 @@ const PurchaseCoupon = (props) => {
                 borderRadius: 2,
                 mt: "margin-top",
             }}>
-                <Button onClick={startEditingHandler}>Purchase</Button>
+                <Button onClick={startEditingHandler}>Purchase Coupon</Button>
                 <div>
                     <label htmlFor="id">id</label>
                     <input type="number" id="id" ref={idRef} />
