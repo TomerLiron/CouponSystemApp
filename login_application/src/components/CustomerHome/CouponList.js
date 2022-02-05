@@ -40,9 +40,6 @@ const CouponList = (props) => {
                 Image
               </TableCell>
               <TableCell align='center'>
-                Amount
-              </TableCell>
-              <TableCell align='center'>
                 Start Date
               </TableCell>
               <TableCell align='center'>
@@ -78,9 +75,6 @@ const CouponList = (props) => {
                       sx={{ width: 100, height: 100 }}
                     >
                     </Avatar>
-                  </TableCell>
-                  <TableCell align="center">
-                    {coupon.amount}
                   </TableCell>
                   <TableCell align="center">
                     {coupon.startDate}
