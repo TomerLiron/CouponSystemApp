@@ -26,7 +26,6 @@ const CustomerHome = (props) => {
         orientation="vertical"
         aria-label="vertical outlined button group"
         variant="contained">
-        <h1>Welcome back!Customer</h1>
         <GetCoupon />
         <PurchaseCoupon />
         <GetCouponByCategory />
