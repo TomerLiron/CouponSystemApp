@@ -11,7 +11,7 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import { getInitials } from '../../AdminHome/get-initials'
+import { getInitials } from '../../utils/get-initials'
 export default function Details(props) {
   return (
     <Card >
