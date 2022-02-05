@@ -47,7 +47,7 @@ const CompanyGeter = (props) => {
       const response = await fetch("/admin/getOneCustomer/", requestOptions);
       if (!response.ok) {
         window.alert("Session timeout!");
-        // dispatch(authActions.logout());
+        dispatch(authActions.logout());
         throw new Error("Something went wrong!");
       }
 

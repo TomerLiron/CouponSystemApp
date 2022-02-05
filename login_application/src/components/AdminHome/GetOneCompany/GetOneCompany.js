@@ -1,5 +1,5 @@
 import CompanyGeter from './CompanyGeter'
-import { useState,useRef } from 'react';
+import { useState, useRef } from 'react';
 import Button from '@mui/material/Button';
 
 
@@ -9,13 +9,13 @@ const GetOneCompany = (props) => {
     const [isEditing, setIsEditing] = useState(false);
 
     const idRef = useRef("");
-
+    const [btnDisabled, setBtnDisabled] = useState(true)
     const saveExpenseDataHandler = (enteredExpenseData) => {
         setIsEditing(false);
     };
 
     const startEditingHandler = () => {
-        console.log("ref "+idRef.current.value)
+        console.log("ref " + idRef.current.value)
 
         setIsEditing(true);
     };
@@ -26,36 +26,33 @@ const GetOneCompany = (props) => {
     return (
         <div className='Get-expense'>
 
-            {!isEditing && (
-                <Button onClick={startEditingHandler}>Get One Company </Button>
-            )}
-            {!isEditing && (
+            {!isEditing && (<Box sx={{
+                m: 1,
+                boxShadow: 5,
+                borderRadius: 2,
+                mt: "margin-top",
+
+
+            }}>
                 <form >
-{/* //onSubmit={formik.handleSubmit} */}
                     <TextField
-                    inputRef={idRef}
-                        // error={Boolean(formik.touched.id && formik.errors.id)}
-                        // fullWidth
-                        // helperText={formik.touched.id && formik.errors.id}
+                        inputRef={idRef}
                         label="Id"
                         margin="normal"
                         name="id"
-                        // onBlur={formik.handleBlur}
-                        // onChange={formik.handleChange}
                         type="number"
-                        // value={formik.values.id}
                         variant="outlined"
+                        onChange={(text) => setBtnDisabled(!text.target.value)}
                     />;
+                    <Button disabled={btnDisabled} onClick={startEditingHandler}>Get One Company </Button>
+
                 </form>
-            )}
+            </Box>)}
             {isEditing && (<Box sx={{
                 m: 1,
                 boxShadow: 5,
                 borderRadius: 2,
-                // p: 2,
                 mt: "margin-top",
-
-
             }}>
                 <CompanyGeter id={idRef.current.value}
                     onSaveExpenseData={saveExpenseDataHandler}

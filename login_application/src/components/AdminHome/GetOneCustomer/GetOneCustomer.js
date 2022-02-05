@@ -1,13 +1,13 @@
 import CompanyGeter from './CustomerGeter'
-import { useState,useRef } from 'react';
+import { useState, useRef } from 'react';
 import Button from '@mui/material/Button';
 
 
 import { Box, TextField } from '@mui/material';
 
-const GetOneCompany = (props) => {
+const GetOneCustomer = (props) => {
     const [isEditing, setIsEditing] = useState(false);
-
+    const [btnDisabled, setBtnDisabled] = useState(true)
     const idRef = useRef("");
 
     const saveExpenseDataHandler = (enteredExpenseData) => {
@@ -15,7 +15,7 @@ const GetOneCompany = (props) => {
     };
 
     const startEditingHandler = () => {
-        console.log("ref "+idRef.current.value)
+        console.log("ref " + idRef.current.value)
 
         setIsEditing(true);
     };
@@ -26,21 +26,28 @@ const GetOneCompany = (props) => {
     return (
         <div className='Get-expense'>
 
-            {!isEditing && (
-                <Button onClick={startEditingHandler}>Get One Company </Button>
-            )}
-            {!isEditing && (
+            {!isEditing && (<Box sx={{
+                m: 1,
+                boxShadow: 5,
+                borderRadius: 2,
+                mt: "margin-top",
+
+
+            }}>
                 <form >
                     <TextField
-                    inputRef={idRef}
+                        inputRef={idRef}
                         label="Id"
                         margin="normal"
                         name="id"
                         type="number"
                         variant="outlined"
+                        onChange={(text) => setBtnDisabled(!text.target.value)}
                     />;
+                    <Button disabled={btnDisabled} onClick={startEditingHandler}>Get One Customer</Button>
+
                 </form>
-            )}
+            </Box>)}
             {isEditing && (<Box sx={{
                 m: 1,
                 boxShadow: 5,
@@ -58,4 +65,4 @@ const GetOneCompany = (props) => {
         </div>
     );
 };
-export default GetOneCompany;
+export default GetOneCustomer;

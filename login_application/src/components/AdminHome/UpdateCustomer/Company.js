@@ -44,7 +44,8 @@ const Company = (props) => {
     }
   });
 
-  const submitHandler = useCallback(async () => {
+  const submitHandler = useCallback(async (event) => {
+    event.preventDefault();
 
     const company = {
       // id: JSON.stringify(props.oldCompany.id),
@@ -149,7 +150,6 @@ const Company = (props) => {
           <Box sx={{ py: 2 }}>
             <Button
               color="primary"
-              disabled={formik.isSubmitting}
               fullWidth
               size="large"
               type="submit"

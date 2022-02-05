@@ -7,8 +7,11 @@ import GetOneCompany from './GetOneCompany/GetOneCompany';
 import GetOneCustomer from './GetOneCustomer/GetOneCustomer';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
+import { useState,useRef } from 'react';
 
 const AdminHome = (props) => {
+  const idRef = useRef("");
+
   return (
     <Box
       sx={{
@@ -23,7 +26,6 @@ const AdminHome = (props) => {
       }}
     >
       <ButtonGroup
-        // justifyContent="center"
         size="large"
         fullWidth={true}
         orientation="vertical"

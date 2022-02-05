@@ -3,9 +3,21 @@ import UpdateCompany from './UpdateCompany/UpdateCompany'
 import DeleteCustomer from './DeleteCompany/DeleteCompany'
 
 import { Avatar, Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
-import { getInitials } from './get-initials';
+import { getInitials } from '../utils/get-initials';
 
 const CompanyList = (props) => {
+
+
+
+
+
+
+
+
+
+
+
+  
   return (
     <Card >
       <Box sx={{ minWidth: 1050 }}>
