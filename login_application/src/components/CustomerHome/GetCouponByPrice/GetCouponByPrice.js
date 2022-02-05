@@ -27,7 +27,7 @@ const GetCouponByPrice = (props) => {
                 mt: "margin-top",
 
             }}>
-                <Button onClick={startEditingHandler}>GetCoupon</Button>
+                <Button onClick={startEditingHandler}>Sort By Price</Button>
                 <form >
                     <TextField
                     inputRef={priceRef}
