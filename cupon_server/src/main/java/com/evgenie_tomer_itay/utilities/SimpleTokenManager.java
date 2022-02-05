@@ -1,16 +1,18 @@
 package com.evgenie_tomer_itay.utilities;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 @Component
-@Scope("singleton")
 public class SimpleTokenManager {
 
-	private static final long EXPIRATION_TIME_PERIOD_IN_MILLIS = 1000*60*10; //10 min
-	private static final long EXPIRATION_THREAD_PERIOD_IN_MILLIS = 1000*5; //5 seconds
+	private static long EXPIRATION_TIME_PERIOD_IN_MILLIS=20000*60 ; //20 mins
+	private static final long EXPIRATION_THREAD_PERIOD_IN_MILLIS =1000*5; //5 seconds
 	private static long lastToken = 5678;
 	private Map<String, Token> tokens = new HashMap<String, Token>();
 
@@ -45,7 +47,6 @@ public class SimpleTokenManager {
 	      }
 	    }, delay, EXPIRATION_THREAD_PERIOD_IN_MILLIS);
 	}
-	
 	synchronized private void removeExpiredSessions() {
 		//System.out.println("Remove Expired Sessions Thread Started!");
 		System.out.println("---------------------------------------------------------");
@@ -95,7 +96,7 @@ public class SimpleTokenManager {
 		public boolean isExpired()
 		{
 			long nowTime = (new Date()).getTime();
-			return (nowTime-createTime)>EXPIRATION_TIME_PERIOD_IN_MILLIS;
+			return (nowTime-createTime) > EXPIRATION_TIME_PERIOD_IN_MILLIS;
 		}
 		public String getToken() {
 			return token;

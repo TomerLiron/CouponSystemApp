@@ -3,6 +3,7 @@ package com.evgenie_tomer_itay.utilities;
 import com.evgenie_tomer_itay.entities.Company;
 import com.evgenie_tomer_itay.entities.Coupon;
 import com.evgenie_tomer_itay.entities.Customer;
+import com.evgenie_tomer_itay.exceptions.companyExceptions.NullFieldsException;
 import com.evgenie_tomer_itay.exceptions.couponExceptions.CouponAlreadyExistsException;
 import com.evgenie_tomer_itay.exceptions.couponExceptions.couponExpiredException;
 import com.evgenie_tomer_itay.exceptions.couponExceptions.couponNotExistsException;
@@ -17,6 +18,7 @@ import com.evgenie_tomer_itay.exceptions.couponExceptions.noCouponsLeftException
 import com.evgenie_tomer_itay.repositories.CompanyRepository;
 import com.evgenie_tomer_itay.repositories.CouponRepository;
 import com.evgenie_tomer_itay.repositories.CustomerRepository;
+import org.hibernate.PropertyValueException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -161,6 +163,20 @@ public class Validations {
                     "Coupon with the title (" + title + ") already exists for the company!");
 
     }
+    public void validateFieldsNotEmpty(Coupon coupon) throws NullFieldsException {
+      if(
+                     coupon.getTitle()==null||
+                      coupon.getAmount()==null||
+                      coupon.getEndDate()==null||
+                      coupon.getStartDate()==null||
+                      coupon.getDescription()==null||
+                      coupon.getImage()==null||
+                      coupon.getPrice()==null
+      ){
+          throw new NullFieldsException("Please fill all the fields");
+      }
+    }
+    
 
     public void validateCouponExists(int couponId) throws couponNotExistsException {
         if (!couponRepository.existsById(couponId))
