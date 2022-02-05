@@ -5,6 +5,7 @@ import com.evgenie_tomer_itay.entities.Category;
 import com.evgenie_tomer_itay.entities.Company;
 import com.evgenie_tomer_itay.entities.Coupon;
 import com.evgenie_tomer_itay.exceptions.companyExceptions.CompanyNotExistsException;
+import com.evgenie_tomer_itay.exceptions.companyExceptions.NullFieldsException;
 import com.evgenie_tomer_itay.exceptions.companyExceptions.companyNotOwnsCouponException;
 import com.evgenie_tomer_itay.exceptions.couponExceptions.CouponAlreadyExistsException;
 import com.evgenie_tomer_itay.exceptions.couponExceptions.couponNotExistsException;
@@ -27,7 +28,7 @@ public interface CompanyService {
 	 * @throws CouponAlreadyExistsException
 	 * @see Validations Class for more details
 	 */
-	public void addCoupon(Coupon coupon) throws CouponAlreadyExistsException;
+	public void addCoupon(Coupon coupon) throws CouponAlreadyExistsException, NullFieldsException;
 
 	/**
 	 * @param coupon A Coupon Object from the Database. A custom exception will be
@@ -38,7 +39,7 @@ public interface CompanyService {
 	 * @see Validations Class for more details
 	 */
 	public void updateCoupon(Coupon coupon)
-			throws couponNotExistsException, CouponAlreadyExistsException, companyNotOwnsCouponException;
+			throws couponNotExistsException, CouponAlreadyExistsException, companyNotOwnsCouponException, NullFieldsException;
 
 	/**
 	 * @param couponId coupon id that exists in the database A custom exception will

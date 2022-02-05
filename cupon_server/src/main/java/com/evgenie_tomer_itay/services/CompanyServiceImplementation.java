@@ -3,6 +3,7 @@ package com.evgenie_tomer_itay.services;
 import com.evgenie_tomer_itay.entities.Category;
 import com.evgenie_tomer_itay.entities.Company;
 import com.evgenie_tomer_itay.entities.Coupon;
+import com.evgenie_tomer_itay.exceptions.companyExceptions.NullFieldsException;
 import com.evgenie_tomer_itay.exceptions.couponExceptions.CouponAlreadyExistsException;
 import com.evgenie_tomer_itay.exceptions.couponExceptions.couponNotExistsException;
 import com.evgenie_tomer_itay.exceptions.companyExceptions.CompanyNotExistsException;
@@ -40,10 +41,10 @@ public class CompanyServiceImplementation extends ClientService implements Compa
 
 	@Override
 
-	public void addCoupon(Coupon coupon) throws CouponAlreadyExistsException {
+	public void addCoupon(Coupon coupon) throws CouponAlreadyExistsException, NullFieldsException {
 
 		validations.validateCouponTitleExist(coupon.getTitle(), companyId);
-
+		validations.validateFieldsNotEmpty(coupon);
 		Company company = companyRepository.findById(companyId).get();
 		company.addToCoupons(coupon);
 		companyRepository.save(company);
@@ -52,10 +53,10 @@ public class CompanyServiceImplementation extends ClientService implements Compa
 	@Override
 
 	public void updateCoupon(Coupon coupon)
-			throws couponNotExistsException, CouponAlreadyExistsException, companyNotOwnsCouponException {
+			throws couponNotExistsException, CouponAlreadyExistsException, companyNotOwnsCouponException, NullFieldsException {
 
 		validations.validateUpdateAllowed(coupon, companyId);
-
+		validations.validateFieldsNotEmpty(coupon);
 		couponRepository.save(coupon);
 	}
 
