@@ -21,7 +21,7 @@ const GetCoupon = (props) => {
         <div>
 
             {!isEditing && (
-                <Button onClick={startEditingHandler}>Get Coupon</Button>
+                <Button onClick={startEditingHandler}>Get Coupons</Button>
             )}
             {isEditing && (<Box sx={{
                 m: 1,
