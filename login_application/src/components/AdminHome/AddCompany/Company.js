@@ -67,7 +67,7 @@ const Company = (props) => {
                     <input type="password" id="password" ref={passwordRef} />
                 </div>
                 <div className='new-expense__actions'>
-                    <button onClick={submitHandler} type='submit'>Add Expense</button>
+                    <button onClick={submitHandler} type='submit'>Add Company</button>
                 </div>
             </div>
         </form>
