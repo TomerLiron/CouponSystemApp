@@ -155,7 +155,7 @@ const Company = (props) => {
               type="submit"
               variant="contained"
             >
-              Sign In Now
+              Update Customer
             </Button>
           </Box>
         </form>

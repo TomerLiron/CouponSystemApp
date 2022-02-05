@@ -20,7 +20,7 @@ const GetCustomer = (props) => {
         <div className='Get-expense'>
 
             {!isEditing && (
-                <Button onClick={startEditingHandler}>Get Customer</Button>
+                <Button onClick={startEditingHandler}>Get Customers</Button>
             )}
                 {isEditing && (<Box sx={{
                     m: 1,

@@ -119,7 +119,7 @@ const Company = (props) => {
               type="submit"
               variant="contained"
             >
-              Sign In Now
+              Update Company
             </Button>
           </Box>
         </form>
