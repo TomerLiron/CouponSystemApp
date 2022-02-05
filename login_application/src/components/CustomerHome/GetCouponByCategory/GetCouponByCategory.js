@@ -29,7 +29,7 @@ const GetCouponByCategory = (props) => {
                 // p: 2,
                 mt: "margin-top",
 
-            }}><Button onClick={startEditingHandler}>GetCoupon</Button>
+            }}><Button onClick={startEditingHandler}>Sort By Category</Button>
                 <div >
                     <select className="expenses-filter__select" ref={categoryRef}>
                         <option value="FOOD">FOOD</option>
