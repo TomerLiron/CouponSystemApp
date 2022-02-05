@@ -3,6 +3,7 @@ package com.evgenie_tomer_itay.controllers;
 import com.evgenie_tomer_itay.entities.Category;
 import com.evgenie_tomer_itay.entities.Coupon;
 import com.evgenie_tomer_itay.exceptions.companyExceptions.CompanyNotExistsException;
+import com.evgenie_tomer_itay.exceptions.companyExceptions.NullFieldsException;
 import com.evgenie_tomer_itay.exceptions.companyExceptions.companyNotOwnsCouponException;
 import com.evgenie_tomer_itay.exceptions.couponExceptions.CouponAlreadyExistsException;
 import com.evgenie_tomer_itay.exceptions.couponExceptions.couponNotExistsException;
@@ -34,39 +35,37 @@ public class Company_controller {
 			String token = simpleTokenManager.getNewToken();
 			return new ResponseEntity<String>(token, HttpStatus.OK);
 		} catch (CompanyNotExistsException e) {
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.ACCEPTED);
 		}
+
 	}
 
 	@PostMapping("addCoupon")
 	public ResponseEntity<?> addCoupon(@RequestBody Coupon coupon, @RequestHeader String token) {
-		System.err.println(coupon);
-		System.out.println("ADD REQUEST");
+
 		if (simpleTokenManager.isTokenExist(token)) {
 			System.out.println("Token approved");
 			try {
 				companyService.addCoupon(coupon);
-			} catch (CouponAlreadyExistsException e) {
-				return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<String>("Coupon added successfully", HttpStatus.OK);
+
+			} catch (CouponAlreadyExistsException | NullFieldsException e) {
+				return new ResponseEntity<String>(e.getMessage(), HttpStatus.ACCEPTED);
 			}
-			return new ResponseEntity<String>("Coupon added successfully", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("No Session!", HttpStatus.BAD_REQUEST);
 	}
 
 	@PutMapping("updateCoupon")
 	public ResponseEntity<?> updateCoupon(@RequestBody Coupon coupon, @RequestHeader String token) {
-		System.err.println(coupon);
 		if (simpleTokenManager.isTokenExist(token)) {
-			System.out.println("Token approved");
-			System.out.println("UPDATE REQUEST");
-
 			try {
 				companyService.updateCoupon(coupon);
-			} catch (couponNotExistsException | CouponAlreadyExistsException | companyNotOwnsCouponException e) {
-				return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<String>("Coupon updated successfully", HttpStatus.OK);
+
+			} catch (couponNotExistsException | CouponAlreadyExistsException | companyNotOwnsCouponException | NullFieldsException e) {
+				return new ResponseEntity<String>(e.getMessage(), HttpStatus.ACCEPTED);
 			}
-			return new ResponseEntity<String>("Coupon updated successfully", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("No session!", HttpStatus.BAD_REQUEST);
 	}
@@ -78,23 +77,21 @@ public class Company_controller {
 			System.out.println("Token approved");
 			try {
 				companyService.deleteCoupon(id);
+				return new ResponseEntity<String>("Coupon deleted successfully", HttpStatus.OK);
+
 			} catch (couponNotExistsException | companyNotOwnsCouponException e) {
-				return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<String>(e.getMessage(), HttpStatus.ACCEPTED);
 			}
-			return new ResponseEntity<String>("Coupon deleted successfully", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("No Session!", HttpStatus.BAD_REQUEST);
 
 	}
 
-	// spring security,token
 	@GetMapping("allCoupons")
 	public ResponseEntity<?> getAllCoupons(@RequestHeader String token) {
 		System.out.println("GOT A GET_ALL REQUEST FROM CLIENT");
 		if (simpleTokenManager.isTokenExist(token)) {
-			System.out.println("Token Accepted");
 			List<Coupon> coupons = companyService.getAllCoupons();
-		
 			return new ResponseEntity<>(coupons, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("No Session!", HttpStatus.BAD_REQUEST);
@@ -105,8 +102,6 @@ public class Company_controller {
 	public ResponseEntity<?> getCouponsByCategory(@RequestParam Category category, @RequestHeader String token) {
 		if (simpleTokenManager.isTokenExist(token)) {
 			System.out.println("Token approved");
-		
-
 			List<Coupon> filteredCoupons = companyService.getCouponsByCategory(category);
 			return new ResponseEntity<>(filteredCoupons, HttpStatus.OK);
 		}
