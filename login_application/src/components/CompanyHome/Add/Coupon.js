@@ -49,9 +49,10 @@ const Coupon = (props) => {
                 dispatch(authActions.logout());
                 throw new Error("Something went wrong!");
             }
-            if (response.status === 202) 
+           if (response.status === 202) {
                 window.alert(await response.text())
-
+                return;
+            }
             props.onAddCoupon(coupon)
 
             
