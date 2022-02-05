@@ -56,11 +56,11 @@ const GetOneCustomer = (props) => {
 
 
             }}>
-                <CompanyGeter id={idRef.current.value}
+                <CompanyGeter id={idRef.current.value} stopEditingHandler={stopEditingHandler}
                     onSaveExpenseData={saveExpenseDataHandler}
                     onCancel={stopEditingHandler}
                 />
-                <Button pb={5} size="small" onClick={stopEditingHandler}>Closed </Button>
+                <Button pb={5} size="small" onClick={stopEditingHandler} >Closed </Button>
             </Box>)}
         </div>
     );

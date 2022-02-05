@@ -54,7 +54,7 @@ const GetOneCompany = (props) => {
                 borderRadius: 2,
                 mt: "margin-top",
             }}>
-                <CompanyGeter id={idRef.current.value}
+                <CompanyGeter id={idRef.current.value} stopEditingHandler={stopEditingHandler}
                     onSaveExpenseData={saveExpenseDataHandler}
                     onCancel={stopEditingHandler}
                 />

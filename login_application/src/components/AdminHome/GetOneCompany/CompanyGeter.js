@@ -47,18 +47,23 @@ const CompanyGeter = (props) => {
         window.alert("Session timeout!");
         dispatch(authActions.logout());
         throw new Error("Something went wrong!");
+      }else if (response.status === 202) {
+        window.alert(await response.text())
+        props.stopEditingHandler();
+      }else{
+        console.log("Response Okay!");
+        const data = await response.json();
+        const transformedcoupons = data.map((companieData) => {
+          return {
+            id: companieData.id,
+            name: companieData.name,
+            email: companieData.email,
+          };
+        });
+        setCompanys(transformedcoupons);
       }
 
-      console.log("Response Okay!");
-      const data = await response.json();
-      const transformedcoupons = data.map((companieData) => {
-        return {
-          id: companieData.id,
-          name: companieData.name,
-          email: companieData.email,
-        };
-      });
-      setCompanys(transformedcoupons);
+
     } catch (error) {
       setError(error.message);
     }

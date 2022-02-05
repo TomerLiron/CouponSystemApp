@@ -49,7 +49,10 @@ const CompanyGeter = (props) => {
         window.alert("Session timeout!");
         dispatch(authActions.logout());
         throw new Error("Something went wrong!");
-      }
+      }else if (response.status === 202) {
+        window.alert(await response.text())
+        props.stopEditingHandler();
+      }else{
 
       console.log("Response Okay!");
       const data = await response.json();
@@ -62,6 +65,7 @@ const CompanyGeter = (props) => {
         };
       });
       setCompanys(transformedcoupons);
+    }
     } catch (error) {
       setError(error.message);
     }
